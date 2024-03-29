@@ -36,6 +36,9 @@ class PosOrderRequest extends FormRequest
             'total'           => ['required', 'numeric'],
             'order_type'      => ['required', 'numeric'],
             'source'          => ['required', 'numeric'],
+            'payment_method'  => ['required', 'numeric'],
+            'shipping_charge'  => ['numeric'],
+            'initial_amount'  => [''],
             'products'        => ['required', 'json', new ValidJsonOrder]
         ];
     }

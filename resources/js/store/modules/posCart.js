@@ -7,7 +7,9 @@ export const posCart = {
         subtotal: 0,
         total: 0,
         discount: 0,
-        totalTax: 0
+        totalTax: 0,
+        deliveryPrice: 0,
+        initialPayment: 0,
     },
     getters: {
         lists: function (state) {
@@ -24,7 +26,14 @@ export const posCart = {
         },
         totalTax: function (state) {
             return state.totalTax;
+        },
+        deliveryPrice: function (state) {
+            return state.deliveryPrice;
+        },
+        initialPayment: function (state) {
+            return state.initialPayment;
         }
+
     },
     actions: {
         lists: function (context, payload) {
@@ -99,7 +108,17 @@ export const posCart = {
         discount: function (context, payload) {
             context.commit("discount", payload);
             context.commit("subtotal");
+        },
+        addDeliveryCharge: function(context, deliveryCharge) {
+            context.commit('updateTotal', deliveryCharge);
+            context.commit('subtotal');
+        },
+        addInitialAmount: function(context, initialAmount) {
+            context.commit('updateTotalWithInitialAmount', initialAmount);
+            context.commit('subtotal');
         }
+
+
     },
     mutations: {
         subtotal: function (state) {
@@ -176,6 +195,15 @@ export const posCart = {
             state.total          = 0;
             state.discount       = 0;
             state.totalTax       = 0;
+        },
+        updateTotal: function(state, newTotal) {
+
+            state.deliveryPrice = newTotal;
+        },
+
+        updateTotalWithInitialAmount: function(state, newTotal) {
+
+            state.initialPayment = newTotal;
         }
     },
 };

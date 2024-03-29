@@ -40,6 +40,8 @@
         "stock": "Stock",
         "pos": "POS",
         "pos_orders": "POS Orders",
+        "pos_credit_orders": "POS Credit Orders",
+        "pos_deposit_orders": "POS Deposit Orders",
         "online_orders": "Online Orders",
         "coupons": "Coupons",
         "offers": "Offers",

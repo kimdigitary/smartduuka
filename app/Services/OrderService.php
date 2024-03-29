@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\CreditDepositPurchase;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Exception;
@@ -54,7 +55,9 @@ class OrderService
             $orderColumn = $request->get('order_column') ?? 'id';
             $orderType   = $request->get('order_by') ?? 'desc';
 
-            return Order::with('orderProducts')->where(function ($query) use ($requests) {
+            return Order::with('orderProducts')
+                    ->where('order_type', 10)
+                    ->where(function ($query) use ($requests) {
                 if (isset($requests['from_date']) && isset($requests['to_date'])) {
                     $first_date = Date('Y-m-d', strtotime($requests['from_date']));
                     $last_date  = Date('Y-m-d', strtotime($requests['to_date']));
@@ -64,23 +67,83 @@ class OrderService
                         $last_date
                     );
                 }
-                foreach ($requests as $key => $request) {
-                    if (in_array($key, $this->orderFilter)) {
-                        if ($key === "status") {
-                            $query->where($key, (int)$request);
-                        } else {
-                            $query->where($key, 'like', '%' . $request . '%');
-                        }
-                    }
+                // foreach ($requests as $key => $request) {
+                //     if (in_array($key, $this->orderFilter)) {
+                //         if ($key === "status") {
+                //             $query->where($key, (int)$request);
+                //         } else {
+                //             $query->where($key, 'like', '%' . $request . '%');
+                //         }
+                //     }
 
-                    if (in_array($key, $this->exceptFilter)) {
-                        $explodes = explode('|', $request);
-                        if (is_array($explodes)) {
-                            foreach ($explodes as $explode) {
-                                $query->where('order_type', '!=', $explode);
-                            }
-                        }
-                    }
+                //     // if (in_array($key, $this->exceptFilter)) {
+                //     //     $explodes = explode('|', $request);
+                //     //     if (is_array($explodes)) {
+                //     //         foreach ($explodes as $explode) {
+                //     //             $query->where('order_type', '!=', $explode);
+                //     //         }
+                //     //     }
+                //     // }
+                // }
+            })->orderBy($orderColumn, $orderType)->$method(
+                $methodValue
+            );
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function listCredits(PaginateRequest $request)
+    {
+        try {
+            $requests    = $request->all();
+            $method      = $request->get('paginate', 0) == 1 ? 'paginate' : 'get';
+            $methodValue = $request->get('paginate', 0) == 1 ? $request->get('per_page', 10) : '*';
+            $orderColumn = $request->get('order_column') ?? 'id';
+            $orderType   = $request->get('order_by') ?? 'desc';
+
+            return Order::with(['orderProducts'])
+                    ->where('order_type', 20)
+                    ->where(function ($query) use ($requests) {
+                if (isset($requests['from_date']) && isset($requests['to_date'])) {
+                    $first_date = Date('Y-m-d', strtotime($requests['from_date']));
+                    $last_date  = Date('Y-m-d', strtotime($requests['to_date']));
+                    $query->whereDate('order_datetime', '>=', $first_date)->whereDate(
+                        'order_datetime',
+                        '<=',
+                        $last_date
+                    );
+                }
+            })->orderBy($orderColumn, $orderType)->$method(
+                $methodValue
+            );
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function listDeposits(PaginateRequest $request)
+    {
+        try {
+            $requests    = $request->all();
+            $method      = $request->get('paginate', 0) == 1 ? 'paginate' : 'get';
+            $methodValue = $request->get('paginate', 0) == 1 ? $request->get('per_page', 10) : '*';
+            $orderColumn = $request->get('order_column') ?? 'id';
+            $orderType   = $request->get('order_by') ?? 'desc';
+
+            return Order::with('orderProducts')
+                    ->where('order_type', 25)
+                    ->where(function ($query) use ($requests) {
+                if (isset($requests['from_date']) && isset($requests['to_date'])) {
+                    $first_date = Date('Y-m-d', strtotime($requests['from_date']));
+                    $last_date  = Date('Y-m-d', strtotime($requests['to_date']));
+                    $query->whereDate('order_datetime', '>=', $first_date)->whereDate(
+                        'order_datetime',
+                        '<=',
+                        $last_date
+                    );
                 }
             })->orderBy($orderColumn, $orderType)->$method(
                 $methodValue
@@ -175,7 +238,7 @@ class OrderService
                     $request->validated() + [
                         'user_id'        => $request->customer_id,
                         'status'         => OrderStatus::CONFIRMED,
-                        'payment_status' => PaymentStatus::PAID,
+                        'payment_status' => ($request->order_type == 20 || $request->order_type == 25) ? PaymentStatus::UNPAID : PaymentStatus::PAID,
                         'order_datetime' => date('Y-m-d H:i:s')
                     ]
                 );
@@ -222,7 +285,20 @@ class OrderService
                 }
 
                 $this->order->order_serial_no = date('dmy') . $this->order->id;
-                $this->order->save();
+                $save = $this->order->save();
+
+                if ($save && ($request->order_type == 20 || $request->order_type == 25)) {
+                    $credit = new CreditDepositPurchase();
+                    $credit->order_id = $this->order->id;
+                    $credit->user_id = $request->customer_id;
+                    $credit->type = ($request->order_type == 20) ? 'credit' : 'deposit';
+                    $credit->paid = $request->initial_amount;
+                    $credit->balance = $this->order->total - $credit->paid;
+
+                    $credit->save();
+                }
+
+
             });
             return $this->order;
         } catch (Exception $exception) {

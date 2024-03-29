@@ -175,6 +175,22 @@ class PermissionTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'title'      => 'POS Credit Orders',
+                'name'       => 'pos-credit-orders',
+                'guard_name' => 'sanctum',
+                'url'        => 'pos-orders/credit',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title'      => 'POS Deposit Orders',
+                'name'       => 'pos-deposit-orders',
+                'guard_name' => 'sanctum',
+                'url'        => 'pos-orders/deposit',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'title'      => 'Administrators',
                 'name'       => 'administrators',
                 'guard_name' => 'sanctum',

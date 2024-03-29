@@ -27,7 +27,59 @@ class MenuTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'name'       => 'Pos & Orders',
+                'language'   => 'pos_and_orders',
+                'url'        => '#',
+                'icon'       => 'lab lab-pos',
+                'priority'   => 100,
+                'status'     => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'children'   => [
+                    [
+                        'name'       => 'POS',
+                        'url'        => 'pos',
+                        'language'   => 'pos',
+                        'icon'       => 'lab lab-line-pos',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
 
+                    ],
+                    [
+                        'name'       => 'POS Orders',
+                        'language'   => 'pos_orders',
+                        'url'        => 'pos-orders',
+                        'icon'       => 'lab lab-line-push-notification',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ],
+                    [
+                        'name'       => 'POS Credit Orders',
+                        'language'   => 'pos_credit_orders',
+                        'url'        => 'pos-orders/credit',
+                        'icon'       => 'lab lab-line-orders',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ],
+                    [
+                        'name'       => 'POS Deposited Orders',
+                        'language'   => 'pos_deposit_orders',
+                        'url'        => 'pos-orders/deposit',
+                        'icon'       => 'lab lab-line-pages',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]
+                ],
+            ],
             [
                 'name'       => 'Product & Stock',
                 'language'   => 'product_and_stock',
@@ -80,39 +132,6 @@ class MenuTableSeeder extends Seeder
                         'updated_at' => now()
                     ]
                 ]
-            ],
-            [
-                'name'       => 'Pos & Orders',
-                'language'   => 'pos_and_orders',
-                'url'        => '#',
-                'icon'       => 'lab lab-pos',
-                'priority'   => 100,
-                'status'     => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'children'   => [
-                    [
-                        'name'       => 'POS',
-                        'url'        => 'pos',
-                        'language'   => 'pos',
-                        'icon'       => 'lab lab-line-pos',
-                        'priority'   => 100,
-                        'status'     => 1,
-                        'created_at' => now(),
-                        'updated_at' => now()
-
-                    ],
-                    [
-                        'name'       => 'POS Orders',
-                        'language'   => 'pos_orders',
-                        'url'        => 'pos-orders',
-                        'icon'       => 'lab lab-line-push-notification',
-                        'priority'   => 100,
-                        'status'     => 1,
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ]
-                ],
             ],
             [
                 'name'       => 'Users',

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import appService from "../../services/appService";
+import { useRouter } from 'vue-router';
 
 
 export const posOrder = {
@@ -44,6 +45,20 @@ export const posOrder = {
         lists: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = 'admin/pos-order';
+
+                const router = useRouter();
+                const routeName = router.currentRoute.value.name;
+                console.log('Current route name:', routeName);
+
+                if (routeName === 'admin.pos.orders.credit.list') {
+                    url = 'admin/pos-order/credits';
+                    console.log(url)
+                } else if (routeName === 'admin.pos.orders.deposit.list') {
+                    url = 'admin/pos-order/deposits';
+                    console.log(url)
+                }
+
+                console.log(url);
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }

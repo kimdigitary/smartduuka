@@ -25,7 +25,8 @@ return new class extends Migration {
             $table->decimal('total', 13, 6);
             $table->tinyInteger('order_type')->default(OrderType::DELIVERY);
             $table->timestamp('order_datetime')->default(date('y-m-d h:m:s'));
-            $table->bigInteger('payment_method')->default(PaymentGateway::CASH_ON_DELIVERY);
+            $table->bigInteger('payment_method')->default(PaymentGateway::CASH);
+            $table->string('purchase_type')->default('take_away');
             $table->tinyInteger('payment_status')->default(PaymentStatus::UNPAID);
             $table->tinyInteger('status');
             $table->tinyInteger('active')->default(ASK::NO);

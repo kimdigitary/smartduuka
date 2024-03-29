@@ -25,7 +25,7 @@ class OrderDetailsResource extends JsonResource
             "discount_currency_price"        => AppLibrary::currencyAmountFormat($this->discount),
             "total_currency_price"           => AppLibrary::currencyAmountFormat($this->total),
             "total_amount_price"             => AppLibrary::flatAmountFormat($this->total),
-            "shipping_charge_currency_price" => AppLibrary::currencyAmountFormat($this->shipping_charge),
+            "shipping_charge_currency_price" => AppLibrary::currencyAmountFormat($this->delivery_charge),
             'order_type'                     => $this->order_type,
             'order_date'                     => AppLibrary::date($this->order_datetime),
             'order_time'                     => AppLibrary::time($this->order_datetime),
@@ -39,6 +39,9 @@ class OrderDetailsResource extends JsonResource
             'active'                         => $this->active,
             'user'                           => new UserResource($this->user),
             'order_products'                 => OrderProductResource::collection($this->orderProducts),
+            'purchase_type'                  => $this->purchase_type,
+            'initial_amount'                 => $this->initial_amount,
+            'shipping_charge'                => $this->delivery_charge,
         ];
     }
 }

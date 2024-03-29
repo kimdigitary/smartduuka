@@ -2,6 +2,10 @@ import PosOrderComponent from "../../components/admin/posOrders/PosOrderComponen
 import PosOrderListComponent from "../../components/admin/posOrders/PosOrderListComponent";
 import PosOrderShowComponent from "../../components/admin/posOrders/PosOrderShowComponent";
 
+import PosDepositOrderListComponent from "../../components/admin/posDepositOrders/PosOrderListComponent";
+
+import PosCreditOrderListComponent from "../../components/admin/posCreditOrders/PosOrderListComponent";
+
 export default [
     {
         path: "/admin/pos-orders",
@@ -19,6 +23,28 @@ export default [
                 path: "",
                 component: PosOrderListComponent,
                 name: "admin.pos.orders.list",
+                meta: {
+                    isFrontend: false,
+                    auth: true,
+                    permissionUrl: "pos",
+                    breadcrumb: "",
+                },
+            },
+            {
+                path: "credit",
+                component: PosCreditOrderListComponent,
+                name: "admin.pos.orders.credit.list",
+                meta: {
+                    isFrontend: false,
+                    auth: true,
+                    permissionUrl: "pos",
+                    breadcrumb: "",
+                },
+            },
+            {
+                path: "deposit",
+                component: PosDepositOrderListComponent,
+                name: "admin.pos.orders.deposit.list",
                 meta: {
                     isFrontend: false,
                     auth: true,

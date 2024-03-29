@@ -29,16 +29,16 @@
             <h3 class="flex items-start gap-4 mb-5">
                 <span class="text-2xl font-bold">
                     {{
-                        currencyFormat(temp.price, setting.site_digit_after_decimal_point,
+                        currencyFormat(temp.oldPrice, setting.site_digit_after_decimal_point,
                             setting.site_default_currency_symbol, setting.site_currency_position)
                     }}
                 </span>
-                <del v-if="product.is_offer" class="text-lg font-bold text-shopperz-red">
+                <!-- <del v-if="product.is_offer" class="text-lg font-bold text-shopperz-red">
                     {{
                         currencyFormat(temp.oldPrice, setting.site_digit_after_decimal_point,
                             setting.site_default_currency_symbol, setting.site_currency_position)
                     }}
-                </del>
+                </del> -->
             </h3>
 
 
@@ -165,7 +165,7 @@ export default {
                 taxes: {},
                 quantity: 1,
                 discount: 0,
-                price: 0,
+                price: 1000,
                 oldPrice: 0,
                 totalPrice: 0
             },

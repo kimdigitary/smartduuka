@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CreditDepositPurchaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PosController;
 use App\Http\Controllers\Admin\TaxController;
@@ -382,11 +383,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum'])->group(func
 
     Route::prefix('pos-order')->name('posOrder.')->group(function () {
         Route::get('/', [PosOrderController::class, 'index']);
+        Route::get('/credits', [PosOrderController::class, 'indexCredit']);
+        Route::get('/deposits', [PosOrderController::class, 'indexDeposit']);
         Route::get('show/{order}', [PosOrderController::class, 'show']);
         Route::delete('/{order}', [PosOrderController::class, 'destroy']);
         Route::get('/export', [PosOrderController::class, 'export']);
         Route::post('/change-status/{order}', [PosOrderController::class, 'changeStatus']);
         Route::post('/change-payment-status/{order}', [PosOrderController::class, 'changePaymentStatus']);
+        Route::get('/payment/{order}', [CreditDepositPurchaseController::class, 'index']);
+        Route::post('/payment/{order}', [CreditDepositPurchaseController::class, 'updateBalance']);
     });
 
     Route::prefix('pos')->name('pos.')->group(function () {

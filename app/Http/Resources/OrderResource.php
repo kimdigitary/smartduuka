@@ -16,6 +16,7 @@ class OrderResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $latestCreditPurchase = $this->creditDepositPurchases->first();
         return [
             'id'                   => $this->id,
             'order_serial_no'      => $this->order_serial_no,
@@ -28,6 +29,9 @@ class OrderResource extends JsonResource
             'order_items'          => optional($this->orderProducts)->count(),
             'order_datetime'       => AppLibrary::datetime($this->order_datetime),
             'user'                 => new UserResource($this->user),
+            'purchase_type'        => $this->purchase_type,
+            'paid'                 => optional($latestCreditPurchase)->paid,
+            'balance'              => optional($latestCreditPurchase)->balance,
         ];
     }
 }

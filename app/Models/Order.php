@@ -22,6 +22,7 @@ class Order extends Model
         'order_datetime',
         'payment_method',
         'payment_status',
+        'purchase_type',
         'status',
         'reason',
         'source'
@@ -53,5 +54,14 @@ class Order extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // public function creditDepositPurchase()
+    // {
+    //     return $this->hasMany(CreditDepositPurchase::class, 'order_id');
+    // }
+    public function creditDepositPurchases()
+    {
+        return $this->hasMany(CreditDepositPurchase::class, 'order_id')->latest();
     }
 }
