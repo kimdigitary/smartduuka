@@ -16,6 +16,9 @@
                         <h3 class="text-2xl font-bold mb-1">{{ company.company_name }}</h3>
                         <h4 class="text-sm font-normal">{{ company.company_address }}</h4>
                         <h5 class="text-sm font-normal">{{ $t('label.tel') }}: {{ company.company_calling_code }} {{ company.company_phone }}</h5>
+                        <h2 class="text-2xl font-bold mb-1" v-if="order.order_type == 10">Receipt</h2>
+                        <h2 class="text-2xl font-bold mb-1" v-if="order.order_type == 20">Invoice</h2>
+                        <h2 class="text-2xl font-bold mb-1" v-if="order.order_type == 25">Invoice</h2>
                     </div>
                 </div>
 
@@ -82,6 +85,16 @@
                                 {{ order.tax_currency_price }}
                             </td>
                         </tr>
+                        <tr v-if="order.payment_method == 1">
+                            <td class="text-xs text-left py-0.5 uppercase text-heading">Delivery charge:</td>
+                            <td class="text-xs text-right py-0.5 text-heading">{{ order.shipping_charge_currency_price }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-xs text-left py-0.5 uppercase text-heading">Order type:</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-if="order.order_type == 20">Credit purchase</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 25">Deposited purchase</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 10">Take away</td>
+                        </tr>
                         <tr>
                             <td class="text-xs text-left py-0.5 uppercase text-heading">{{ $t('label.discount') }}:</td>
                             <td class="text-xs text-right py-0.5 text-heading">{{ order.discount_currency_price }}</td>
@@ -91,15 +104,18 @@
                             <td class="text-xs text-left py-0.5 font-bold uppercase text-heading">
                                 {{ $t('label.total') }}:
                             </td>
-                            <td class="text-xs text-right py-0.5 font-bold text-heading">
+                            <td v-if="order.shipping_charge > 0" class="text-xs text-right py-0.5 font-bold text-heading">
+                                {{ order.total_currency_price + order.shipping_charge}}
+                            </td>
+                            <td v-else class="text-xs text-right py-0.5 font-bold text-heading">
                                 {{ order.total_currency_price }}
                             </td>
                         </tr>
                     </table>
                 </div>
-                <p class="text-xs py-2 border-t border-b border-dashed border-gray-400 text-heading">
+                <!-- <p class="text-xs py-2 border-t border-b border-dashed border-gray-400 text-heading">
                     {{ $t('label.payment_type') }}: {{ $t('label.cash') }}
-                </p>
+                </p> -->
                 <div class="text-center pt-2 pb-4">
                     <p class="text-[11px] leading-[14px] capitalize text-heading">
                         {{ $t('message.thank_you') }}
@@ -112,7 +128,7 @@
                     <h5 class="text-[8px] font-normal text-left w-[46px] leading-[10px]">
                         {{ $t('label.powered_by') }}
                     </h5>
-                    <h6 class="text-xs font-normal leading-4">Smart Duuka</h6>
+                     <h6 class="text-xs font-normal leading-4">Smart Duuka</h6>
                     <p><small>Visit: https://smartduuka.com</small></p>
                 </div> -->
                 <div class="flex flex-col items-end">

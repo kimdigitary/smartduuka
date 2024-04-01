@@ -7,3 +7,4 @@ const orderTypeEnum = Object.freeze({
     TAKE_AWAY: 10,
 });
 export default orderTypeEnum;
+ 

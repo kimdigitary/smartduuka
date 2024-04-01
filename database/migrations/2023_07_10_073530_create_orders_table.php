@@ -31,7 +31,7 @@ return new class extends Migration {
             $table->tinyInteger('status');
             $table->tinyInteger('active')->default(ASK::NO);
             $table->text('reason')->nullable();
-            $table->string('source')->nullable();
+            $table->string('source')->nullable(); 
             $table->string('creator_type')->nullable();
             $table->bigInteger('creator_id')->nullable();
             $table->string('editor_type')->nullable();

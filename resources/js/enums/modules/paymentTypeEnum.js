@@ -4,5 +4,5 @@ const paymentTypeEnum = Object.freeze({
     PAYPAL           : 3,
     CASH           : 4,
     CREDIT         : 5,
-});
+}); 
 export default paymentTypeEnum;

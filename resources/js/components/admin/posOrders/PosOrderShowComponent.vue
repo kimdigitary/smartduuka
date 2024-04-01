@@ -173,7 +173,7 @@
                     </div>
                     <div class="db-card-body">
                         <div class="db-table-responsive">
-                            <table class="db-table stripe" id="print">
+                            <table class="db-table stripe">
                                 <thead class="db-table-head">
                                     <tr class="db-table-head-tr">
                                         <th class="db-table-head-th">#</th>
@@ -391,18 +391,14 @@ export default {
             axios.get(`/admin/pos-order/payment/${this.orderId}`)
                 .then(response => {
                     this.payments = response.data.payments;
+
+                    this.payment_status = res.data.data.payment_status;
                 })
                 .catch(error => {
                     console.error('Error fetching payments:', error);
                 });
         },
-
     },
 
-    // created() {
-    //     this.$once('formSaved', () => {
-    //         this.refreshPayments();
-    //     });
-    // }
 }
 </script>

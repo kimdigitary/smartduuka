@@ -51,9 +51,11 @@ class CreditDepositPurchaseController extends Controller
         $saveCreditPurchase->save();
 
 
-        $order->update([
-            'payment_status' => PaymentStatus::PAID
-        ]);
+        if ($creditDepositPurchase->balance == 0) {
+            $order->update([
+                'payment_status' => PaymentStatus::PAID
+            ]);
+        }
 
         return response()->json(['message' => 'Balance updated successfully']);
     }
