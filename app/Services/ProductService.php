@@ -691,7 +691,7 @@ class ProductService
     public function topProducts()
     {
         try {
-            return Product::withCount('orderCountable')->where(['status' => Status::ACTIVE])->orderBy('order_countable_count', 'desc')->limit(12)->get();
+            return Product::withCount('orderCountable')->where(['status' => Status::ACTIVE])->orderBy('order_countable_count', 'desc')->limit(4)->get();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);

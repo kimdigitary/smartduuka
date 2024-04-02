@@ -53,6 +53,53 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12 sm:col-6 xl:col-3">
+                <div class="bg-admin-purple p-4 rounded-lg flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
+                        <i class="lab-fill-dollar-circle text-admin-pink text-2xl lab-font-size-24"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium tracking-wide capitalize text-white">Total Deposited Orders</h3>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_sales }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 xl:col-3">
+                <div class="bg-admin-blue p-4 rounded-lg flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
+                        <i class="lab-fill-box text-admin-orange text-2xl lab-font-size-24"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium tracking-wide capitalize text-white">Total Credited Orders</h3>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_orders }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 xl:col-3">
+                <div class="bg-admin-pink p-4 rounded-lg flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
+                        <i class="lab-fill-users text-admin-purple text-2xl lab-font-size-24"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_customers') }}</h3>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_customers }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 sm:col-6 xl:col-3">
+                <div class="bg-admin-orange p-4 rounded-lg flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
+                        <i class="lab-fill-document text-admin-blue text-2xl lab-font-size-24"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_products') }}</h3>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_products }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

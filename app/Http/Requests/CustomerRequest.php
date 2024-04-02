@@ -32,12 +32,12 @@ class CustomerRequest extends FormRequest
                 'max:190',
                 Rule::unique("users", "email")->ignore($this->route('customer.id'))
             ],
-            'password'              => [
-                $this->route('customer.id') ? 'nullable' : 'required',
-                'string',
-                'min:6',
-                'confirmed'
-            ],
+            // 'password'              => [
+            //     $this->route('customer.id') ? 'nullable' : 'required',
+            //     'string',
+            //     'min:6',
+            //     'confirmed'
+            // ],
             'username'              => [
                 'nullable',
                 'max:190',
@@ -45,7 +45,7 @@ class CustomerRequest extends FormRequest
             ],
             'device_token'          => ['nullable', 'string'],
             'web_token'             => ['nullable', 'string'],
-            'password_confirmation' => [$this->route('customer.id') ? 'nullable' : 'required', 'string', 'min:6'],
+            // 'password_confirmation' => [$this->route('customer.id') ? 'nullable' : 'required', 'string', 'min:6'],
             'phone'                 => [
                 'nullable',
                 'string',

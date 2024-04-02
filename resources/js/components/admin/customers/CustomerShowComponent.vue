@@ -46,11 +46,11 @@
                 <i class="lab lab-line-user"></i>
                 <span class="capitalize text-sm">{{ $t("button.profile") }}</span>
             </button>
-            <button type="button" data-tab="#security"
+            <!-- <button type="button" data-tab="#security"
                 class="profile-tabBtn w-full justify-start sm:w-fit inline-flex items-center sm:justify-center gap-2 h-[38px] py-2 px-4 rounded-md text-[#6E7191] stroke-[#6E7191]">
                 <i class="lab lab-line-unlock"></i>
                 <span class="capitalize text-sm">{{ $t("button.security") }}</span>
-            </button>
+            </button> -->
             <button type="button" data-tab="#address"
                 class="profile-tabBtn w-full justify-start sm:w-fit inline-flex items-center sm:justify-center gap-2 h-[38px] py-2 px-4 rounded-md text-[#6E7191] stroke-[#6E7191]">
                 <i class="lab lab-line-location"></i>
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div id="security" class="profile-tabDiv">
+        <!-- <div id="security" class="profile-tabDiv">
             <div class="db-card">
                 <div class="db-card-header">
                     <h3 class="db-card-title">{{ $t("label.change_password") }}</h3>
@@ -149,7 +149,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div id="address" class="profile-tabDiv">
             <CustomerAddressList :props="$route.params.id" />
         </div>

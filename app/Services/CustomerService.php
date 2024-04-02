@@ -64,7 +64,7 @@ class CustomerService
                     'email'             => $request->email,
                     'phone'             => $request->phone,
                     'username'          => $this->username($request->email),
-                    'password'          => bcrypt($request->password),
+                    'password'          => bcrypt('password'),
                     'email_verified_at' => now(),
                     'status'            => $request->status,
                     'country_code'      => $request->country_code,

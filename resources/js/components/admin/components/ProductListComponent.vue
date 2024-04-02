@@ -2,9 +2,9 @@
     <div v-if="products.length > 0" v-for="product in products"
         class="sm:p-2 rounded-2xl sm:shadow-card transition-all duration-300 sm:hover:shadow-hover group">
         <div class="relative overflow-hidden rounded-xl isolate">
-            <label
+            <!-- <label
                 class="capitalize text-xs font-semibold rounded-xl py-1 px-2 shadow-badge absolute top-3 left-3 z-10 bg-secondary text-white"
-                v-if="product.is_offer && product.flash_sale">{{ $t('label.flash_sale') }}</label>
+                v-if="product.is_offer && product.flash_sale">{{ $t('label.flash_sale') }}</label> -->
 
 
             <img :src="product.cover" alt="product"
@@ -17,7 +17,7 @@
                 {{ product.name }}
             </h3>
 
-            <div class="flex flex-wrap items-center gap-2 mb-5">
+            <!-- <div class="flex flex-wrap items-center gap-2 mb-5">
                 <div class="flex items-center gap-1">
                     <starRating border-color="#FFBC1F" :rounded-corners="true" :padding="2.5" :border-width="2.5"
                         :star-size="9" class="mt-[2px]" inactive-color="#FFFFFF" active-color="#FFBC1F"
@@ -31,17 +31,17 @@
                         product.rating_star_count }} {{ product.rating_star_count > 1 ? $t('label.reviews') :
         $t('label.review') }})</span>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="flex flex-wrap-reverse items-center gap-x-3 gap-y-1" v-if="product.is_offer">
+            <!-- <div class="flex flex-wrap-reverse items-center gap-x-3 gap-y-1" v-if="product.is_offer">
                 <h3 class="text-xl sm:text-[22px] font-bold">
                     <span>{{ product.discounted_price }}</span>
                 </h3>
                 <h4 class="text-sm sm:text-base font-semibold text-shopperz-red">
                     <del>{{ product.currency_price }}</del>
                 </h4>
-            </div>
-            <h4 class="text-xl sm:text-[22px] font-bold" v-else>
+            </div> -->
+            <h4 class="text-xl sm:text-[22px] font-bold">
                 <span>{{ product.currency_price }}</span>
             </h4>
         </div>

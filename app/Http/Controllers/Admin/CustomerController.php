@@ -25,6 +25,7 @@ class CustomerController extends AdminController
         parent::__construct();
         $this->customerService = $customerService;
         $this->orderService    = $orderService;
+        
         $this->middleware(['permission:customers'])->only(
             'index',
             'export',
@@ -32,6 +33,7 @@ class CustomerController extends AdminController
             'changeImage',
             'myOrder'
         );
+
         $this->middleware(['permission:customers_create'])->only('store');
         $this->middleware(['permission:customers_edit'])->only('update');
         $this->middleware(['permission:customers_delete'])->only('destroy');
