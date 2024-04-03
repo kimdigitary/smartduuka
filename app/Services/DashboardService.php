@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Enums\OrderType;
+use App\Enums\Status;
+use App\Models\Stock;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
@@ -119,7 +122,7 @@ class DashboardService
                 $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
                 $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
             }
-            return Order::where('status', OrderStatus::DELIVERED)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+            return Order::whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);
@@ -170,7 +173,7 @@ class DashboardService
                 $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
                 $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
             }
-            return Order::where('order_type', 20)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+            return Order::where('order_type', OrderType::CREDIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);
@@ -187,7 +190,7 @@ class DashboardService
                 $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
                 $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
             }
-            return Order::where('order_type', 25)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+            return Order::where('order_type', OrderType::DEPOSIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);
@@ -197,14 +200,7 @@ class DashboardService
     public function inStock(Request $request)
     {
         try {
-            if ($request->first_date && $request->last_date) {
-                $first_date = Date('Y-m-d', strtotime($request->first_date));
-                $last_date  = Date('Y-m-d', strtotime($request->last_date));
-            } else {
-                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
-                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
-            }
-            return Order::where('status', OrderStatus::DELIVERED)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+            return Stock::where('status', Status::ACTIVE)->count();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);
@@ -214,14 +210,7 @@ class DashboardService
     public function outStock(Request $request)
     {
         try {
-            if ($request->first_date && $request->last_date) {
-                $first_date = Date('Y-m-d', strtotime($request->first_date));
-                $last_date  = Date('Y-m-d', strtotime($request->last_date));
-            } else {
-                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
-                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
-            }
-            return Order::where('status', OrderStatus::DELIVERED)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+            return Stock::where('status', Status::INACTIVE)->count();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);

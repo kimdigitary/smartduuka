@@ -14,7 +14,8 @@
                         <i class="lab-fill-dollar-circle text-admin-pink text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_earnings') }}</h3>
+                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_earnings') }}
+                        </h3>
                         <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_sales }}</h4>
                     </div>
                 </div>
@@ -36,7 +37,8 @@
                         <i class="lab-fill-users text-admin-purple text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_customers') }}</h3>
+                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_customers') }}
+                        </h3>
                         <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_customers }}</h4>
                     </div>
                 </div>
@@ -47,7 +49,8 @@
                         <i class="lab-fill-document text-admin-blue text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_products') }}</h3>
+                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_products') }}
+                        </h3>
                         <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_products }}</h4>
                     </div>
                 </div>
@@ -56,15 +59,7 @@
 
         <div class="row">
             <div class="col-12 sm:col-6 xl:col-3">
-<<<<<<< Updated upstream
-                <div class="bg-admin-purple p-4 rounded-lg flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
-                        <i class="lab-fill-dollar-circle text-admin-pink text-2xl lab-font-size-24"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">Total Deposited Orders</h3>
-                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_sales }}</h4>
-=======
+
                 <div class="bg-admin-orange p-4 rounded-lg flex items-center gap-4">
                     <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
                         <i class="lab-line-sales-report text-admin-pink text-2xl lab-font-size-24"></i>
@@ -72,64 +67,42 @@
                     <div>
                         <h3 class="font-medium tracking-wide capitalize text-white">Credit Sales</h3>
                         <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ credit_sales }}</h4>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
             <div class="col-12 sm:col-6 xl:col-3">
                 <div class="bg-admin-blue p-4 rounded-lg flex items-center gap-4">
                     <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
-<<<<<<< Updated upstream
-                        <i class="lab-fill-box text-admin-orange text-2xl lab-font-size-24"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">Total Credited Orders</h3>
-                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_orders }}</h4>
-=======
+
                         <i class="lab-line-pages text-admin-orange text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">Total Deposits</h3>
+                        <h3 class="font-medium tracking-wide capitalize text-white">Deposit Sales</h3>
                         <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ deposit_sales }}</h4>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
             <div class="col-12 sm:col-6 xl:col-3">
                 <div class="bg-admin-pink p-4 rounded-lg flex items-center gap-4">
                     <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
-<<<<<<< Updated upstream
-                        <i class="lab-fill-users text-admin-purple text-2xl lab-font-size-24"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_customers') }}</h3>
-=======
+
                         <i class="lab-fill-box text-admin-purple text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
                         <h3 class="font-medium tracking-wide capitalize text-white">In Stock</h3>
->>>>>>> Stashed changes
-                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_customers }}</h4>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ in_stock }}</h4>
                     </div>
                 </div>
             </div>
             <div class="col-12 sm:col-6 xl:col-3">
-<<<<<<< Updated upstream
-                <div class="bg-admin-orange p-4 rounded-lg flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
-                        <i class="lab-fill-document text-admin-blue text-2xl lab-font-size-24"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium tracking-wide capitalize text-white">{{ $t('label.total_products') }}</h3>
-=======
+
                 <div class="bg-admin-purple p-4 rounded-lg flex items-center gap-4">
                     <div class="w-12 h-12 rounded-full flex items-center justify-center bg-white">
                         <i class="lab-line-items text-admin-blue text-2xl lab-font-size-24"></i>
                     </div>
                     <div>
                         <h3 class="font-medium tracking-wide capitalize text-white">Out of stock</h3>
->>>>>>> Stashed changes
-                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ total_products }}</h4>
+                        <h4 class="font-semibold text-[22px] leading-[34px] text-white">{{ out_stock }}</h4>
                     </div>
                 </div>
             </div>
@@ -156,6 +129,8 @@ export default {
             total_products: null,
             credit_sales: null,
             deposit_sales: null,
+            in_stock: null,
+            out_stock: null,
         };
     },
     mounted() {
@@ -166,6 +141,8 @@ export default {
         this.totalProducts();
         this.depositSales();
         this.creditSales();
+        this.inStock();
+        this.outStock();
     },
     methods: {
         handleDate: function (e) {
@@ -177,6 +154,10 @@ export default {
                 this.totalOrders();
                 this.totalCustomers();
                 this.totalProducts();
+                this.depositSales();
+                this.creditSales();
+                this.inStock();
+                this.outStock();
             } else {
                 this.first_date = null;
                 this.last_date = null;
@@ -184,6 +165,10 @@ export default {
                 this.totalOrders();
                 this.totalCustomers();
                 this.totalProducts();
+                this.depositSales();
+                this.creditSales();
+                this.inStock();
+                this.outStock();
             }
         },
         totalSales: function () {
@@ -254,6 +239,30 @@ export default {
                 last_date: this.last_date,
             }).then((res) => {
                 this.deposit_sales = res.data.data.deposit_sales;
+                this.loading.isActive = false;
+            }).catch((err) => {
+                this.loading.isActive = false;
+            });
+        },
+        outStock: function () {
+            this.loading.isActive = true;
+            this.$store.dispatch("dashboard/outStock", {
+                first_date: this.first_date,
+                last_date: this.last_date,
+            }).then((res) => {
+                this.out_stock = res.data.data.out_stock;
+                this.loading.isActive = false;
+            }).catch((err) => {
+                this.loading.isActive = false;
+            });
+        },
+        inStock: function () {
+            this.loading.isActive = true;
+            this.$store.dispatch("dashboard/inStock", {
+                first_date: this.first_date,
+                last_date: this.last_date,
+            }).then((res) => {
+                this.in_stock = res.data.data.in_stock;
                 this.loading.isActive = false;
             }).catch((err) => {
                 this.loading.isActive = false;

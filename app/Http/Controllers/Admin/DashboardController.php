@@ -34,7 +34,11 @@ class DashboardController extends AdminController
             'customerStates',
             'totalOrders',
             'totalCustomers',
-            'totalProducts'
+            'totalProducts',
+            'creditSales',
+            'depositSales',
+            'inStock',
+            'outStock'
         );
     }
 
@@ -106,7 +110,7 @@ class DashboardController extends AdminController
     public function creditSales(Request $request): \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
-            return ['data' => ['credit_sales' => $this->dashboardService->creditSales($request)]];
+            return ['data' => ['credit_sales' => AppLibrary::currencyAmountFormat($this->dashboardService->creditSales($request))]];
         } catch (Exception $exception) {
             return response(['status' => false, 'message' => $exception->getMessage()], 422);
         }
@@ -115,7 +119,7 @@ class DashboardController extends AdminController
     public function depositSales(Request $request): \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
-            return ['data' => ['deposit_sales' => $this->dashboardService->depositSales($request)]];
+            return ['data' => ['deposit_sales' => AppLibrary::currencyAmountFormat($this->dashboardService->depositSales($request))]];
         } catch (Exception $exception) {
             return response(['status' => false, 'message' => $exception->getMessage()], 422);
         }

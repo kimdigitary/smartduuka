@@ -14,6 +14,8 @@ export const dashboard = {
         topProducts: [],
         creditSales: [],
         depositSales: [],
+        inStock: [],
+        outStock: [],
     },
 
     getters: {
@@ -46,6 +48,12 @@ export const dashboard = {
         },
         depositSales: function (state) {
             return state.depositSales;
+        },
+        inStock: function (state) {
+            return state.inStock;
+        },
+        outStock: function (state) {
+            return state.outStock;
         }
     },
 
@@ -98,6 +106,7 @@ export const dashboard = {
             });
         },
         creditSales: function (context,payload) {
+            console.log(payload);
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/credit-sales";
                 if (payload) {
@@ -120,6 +129,36 @@ export const dashboard = {
                 }
                 axios.get(url).then((res) => {
                         context.commit("depositSales", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        inStock: function (context,payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/in-stock";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                        context.commit("inStock", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        outStock: function (context,payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/out-stock";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                        context.commit("outStock", res.data.data);
                         resolve(res);
                     })
                     .catch((err) => {
@@ -217,6 +256,12 @@ export const dashboard = {
         },
         depositSales: function (state, payload) {
             state.depositSales = payload;
-        }
+        },
+        inStock: function (state, payload) {
+            state.inStock = payload;
+        },
+        outStock: function (state, payload) {
+            state.outStock = payload;
+        },
     },
 };
