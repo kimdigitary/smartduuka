@@ -109,6 +109,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum'])->group(func
         Route::get('/sales-summary', [DashboardController::class, 'salesSummary']);
         Route::get('/customer-states', [DashboardController::class, 'customerStates']);
         Route::get('/top-products', [DashboardController::class, 'topProducts']);
+        Route::get('/credit-sales', [DashboardController::class, 'creditSales']);
+        Route::get('/deposit-sales', [DashboardController::class, 'depositSales']);
+        Route::get('/in-stock', [DashboardController::class, 'inStock']);
+        Route::get('/out-stock', [DashboardController::class, 'outStock']);
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {

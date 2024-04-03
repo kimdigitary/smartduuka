@@ -159,4 +159,72 @@ class DashboardService
             throw new Exception($exception->getMessage(), 422);
         }
     }
+
+    public function creditSales(Request $request)
+    {
+        try {
+            if ($request->first_date && $request->last_date) {
+                $first_date = Date('Y-m-d', strtotime($request->first_date));
+                $last_date  = Date('Y-m-d', strtotime($request->last_date));
+            } else {
+                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
+                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
+            }
+            return Order::where('order_type', 20)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function depositSales(Request $request)
+    {
+        try {
+            if ($request->first_date && $request->last_date) {
+                $first_date = Date('Y-m-d', strtotime($request->first_date));
+                $last_date  = Date('Y-m-d', strtotime($request->last_date));
+            } else {
+                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
+                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
+            }
+            return Order::where('order_type', 25)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function inStock(Request $request)
+    {
+        try {
+            if ($request->first_date && $request->last_date) {
+                $first_date = Date('Y-m-d', strtotime($request->first_date));
+                $last_date  = Date('Y-m-d', strtotime($request->last_date));
+            } else {
+                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
+                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
+            }
+            return Order::where('status', OrderStatus::DELIVERED)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function outStock(Request $request)
+    {
+        try {
+            if ($request->first_date && $request->last_date) {
+                $first_date = Date('Y-m-d', strtotime($request->first_date));
+                $last_date  = Date('Y-m-d', strtotime($request->last_date));
+            } else {
+                $first_date = Date('Y-m-01', strtotime(Carbon::today()->toDateString()));
+                $last_date  = Date('Y-m-t', strtotime(Carbon::today()->toDateString()));
+            }
+            return Order::where('status', OrderStatus::DELIVERED)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
 }

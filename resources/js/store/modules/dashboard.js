@@ -12,6 +12,8 @@ export const dashboard = {
         customerStates: [],
         featuredItems: [],
         topProducts: [],
+        creditSales: [],
+        depositSales: [],
     },
 
     getters: {
@@ -38,6 +40,12 @@ export const dashboard = {
         },
         topProducts: function (state) {
             return state.topProducts;
+        },
+        creditSales: function (state) {
+            return state.creditSales;
+        },
+        depositSales: function (state) {
+            return state.depositSales;
         }
     },
 
@@ -82,6 +90,36 @@ export const dashboard = {
                 }
                 axios.get(url).then((res) => {
                         context.commit("totalCustomers", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        creditSales: function (context,payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/credit-sales";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                        context.commit("creditSales", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        depositSales: function (context,payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/deposit-sales";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                        context.commit("depositSales", res.data.data);
                         resolve(res);
                     })
                     .catch((err) => {
@@ -173,6 +211,12 @@ export const dashboard = {
         },
         topProducts: function (state, payload) {
             state.topProducts = payload;
+        },
+        creditSales: function (state, payload) {
+            state.creditSales = payload;
+        },
+        depositSales: function (state, payload) {
+            state.depositSales = payload;
         }
     },
 };

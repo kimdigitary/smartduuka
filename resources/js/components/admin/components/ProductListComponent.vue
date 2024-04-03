@@ -40,7 +40,11 @@
                 <h4 class="text-sm sm:text-base font-semibold text-shopperz-red">
                     <del>{{ product.currency_price }}</del>
                 </h4>
+<<<<<<< Updated upstream
             </div> -->
+=======
+            </div>
+>>>>>>> Stashed changes
             <h4 class="text-xl sm:text-[22px] font-bold">
                 <span>{{ product.currency_price }}</span>
             </h4>
