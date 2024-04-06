@@ -209,6 +209,18 @@
                     </span>
                 </li>
 
+                <li class="flex items-center justify-between">
+                    <span class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">
+                        {{ $t("label.total") }}
+                    </span>
+                    <span class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">
+                        {{
+        currencyFormat((subtotal + totalTax + deliveryPrice) - posDiscount,
+            setting.site_digit_after_decimal_point, setting.site_default_currency_symbol,
+            setting.site_currency_position)
+    }}
+                    </span>
+                </li>
                 <li v-if="showAmountField" class="flex items-center justify-between">
                     <span class="text-sm font-client capitalize leading-6">Initial Amount</span>
                     <span class="text-sm font-client capitalize leading-6">
@@ -220,9 +232,9 @@
                     </span>
                 </li>
 
-                <li class="flex items-center justify-between">
+                <li v-if="showAmountField" class="flex items-center justify-between">
                     <span class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">
-                        {{ $t("label.total") }}
+                        Balance
                     </span>
                     <span class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">
                         {{
@@ -232,6 +244,7 @@
     }}
                     </span>
                 </li>
+
             </ul>
             <div class="flex items-center justify-center gap-6" v-if="carts.length > 0">
                 <button @click.prevent="resetCart"

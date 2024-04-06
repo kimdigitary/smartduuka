@@ -1,4 +1,5 @@
 <template>
+    <LoadingComponent :props="loading" />
     <div v-if="isVisible" class="modal-backdrop">
         <div class="modal-dialog max-w-[420px]">
             <div class="modal-header hidden-print">
@@ -83,6 +84,7 @@ export default {
                             1,
                             "Payment added!"
                         );
+                        this.amount = null;
                         this.closeModal();
 
                         this.$emit('formSaved'); //refresh the payment list

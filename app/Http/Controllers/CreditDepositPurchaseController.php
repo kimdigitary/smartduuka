@@ -33,7 +33,7 @@ class CreditDepositPurchaseController extends Controller
 
     public function updateBalance(Request $request, $orderId) {
         $creditDepositPurchase = CreditDepositPurchase::where('order_id', $orderId)
-            ->orderBy('balance', 'asc')
+            ->latest()
             ->first();
 
         if ($creditDepositPurchase->balance <= 0) {
@@ -51,7 +51,7 @@ class CreditDepositPurchaseController extends Controller
         $saveCreditPurchase->save();
 
 
-        if ($creditDepositPurchase->balance == 0) {
+        if ($saveCreditPurchase->balance == 0) {
             $order->update([
                 'payment_status' => PaymentStatus::PAID
             ]);

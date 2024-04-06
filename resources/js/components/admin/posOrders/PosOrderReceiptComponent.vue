@@ -72,6 +72,12 @@
                 <div class="py-2 pl-7">
                     <table class="w-full">
                         <tr>
+                            <td class="text-xs text-left py-0.5 uppercase text-heading">Order type:</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-if="order.order_type == 20">Credit purchase</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 25">Deposited purchase</td>
+                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 10">Take away</td>
+                        </tr>
+                        <tr>
                             <td class="text-xs text-left py-0.5 uppercase text-heading">{{ $t('label.subtotal') }}:</td>
                             <td class="text-xs text-right py-0.5 text-heading">
                                 {{ order.subtotal_currency_price }}
@@ -90,12 +96,6 @@
                             <td class="text-xs text-right py-0.5 text-heading">{{ order.shipping_charge_currency_price }}</td>
                         </tr>
                         <tr>
-                            <td class="text-xs text-left py-0.5 uppercase text-heading">Order type:</td>
-                            <td class="text-xs text-right py-0.5 text-heading" v-if="order.order_type == 20">Credit purchase</td>
-                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 25">Deposited purchase</td>
-                            <td class="text-xs text-right py-0.5 text-heading" v-else-if="order.order_type == 10">Take away</td>
-                        </tr>
-                        <tr>
                             <td class="text-xs text-left py-0.5 uppercase text-heading">{{ $t('label.discount') }}:</td>
                             <td class="text-xs text-right py-0.5 text-heading">{{ order.discount_currency_price }}</td>
                         </tr>
@@ -109,6 +109,21 @@
                             </td>
                             <td v-else class="text-xs text-right py-0.5 font-bold text-heading">
                                 {{ order.total_currency_price }}
+                            </td>
+                        </tr>
+
+                        <tr v-if="order.initial_amount != null">
+                            <td class="text-xs text-left py-0.5 uppercase text-heading" v-if="order.order_type == 25">Amount Deposited:</td>
+                            <td class="text-xs text-left py-0.5 uppercase text-heading" v-if="order.order_type == 20">Amount Paid:</td>
+                            <td class="text-xs text-right py-0.5 text-heading">{{ order.initial_amount }}</td>
+                        </tr>
+
+                        <tr v-if="order.initial_amount != null">
+                            <td class="text-xs text-left py-0.5 font-bold uppercase text-heading">
+                                Balance:
+                            </td>
+                            <td class="text-xs text-right py-0.5 font-bold text-heading">
+                                {{ order.balance }}
                             </td>
                         </tr>
                     </table>

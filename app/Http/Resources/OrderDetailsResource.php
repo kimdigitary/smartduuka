@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Enums\Ask;
 use App\Libraries\AppLibrary;
+use App\Models\CreditDepositPurchase;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderDetailsResource extends JsonResource
@@ -40,8 +41,9 @@ class OrderDetailsResource extends JsonResource
             'user'                           => new UserResource($this->user),
             'order_products'                 => OrderProductResource::collection($this->orderProducts),
             'purchase_type'                  => $this->purchase_type,
-            'initial_amount'                 => $this->initial_amount,
+            'initial_amount'                 => CreditDepositPurchase::where('order_id', $this->id)->exists() ? AppLibrary::currencyAmountFormat(CreditDepositPurchase::where('order_id', $this->id)->sum('paid')) : null,
             'shipping_charge'                => $this->shipping_charge,
+            'balance'                        => CreditDepositPurchase::where('order_id', $this->id)->exists() ? AppLibrary::currencyAmountFormat(CreditDepositPurchase::where('order_id', $this->id)->latest()->first()->balance) : null,
         ];
     }
 }

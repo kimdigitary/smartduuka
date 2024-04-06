@@ -126,6 +126,19 @@
                             {{ order.total_currency_price }}
                         </h5>
                     </div>
+                    <ul class="flex flex-col gap-2 p-3 border-b border-dashed border-[#EFF0F6]">
+                        <li class="flex items-center justify-between text-heading">
+                            <span class="text-sm leading-6 capitalize" v-if="order.order_type == 25">Amount Deposited</span>
+                            <span class="text-sm leading-6 capitalize" v-if="order.order_type == 20">Amount Paid</span>
+                            <span class="text-sm leading-6 capitalize">{{ order.initial_amount }}</span>
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-between p-3">
+                        <h4 class="text-sm leading-6 font-bold capitalize">Balance</h4>
+                        <h5 class="text-sm leading-6 font-bold capitalize">
+                            {{ order.balance }}
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -210,7 +223,8 @@
 
     <!-- <PaymentModal :isVisible="isPaymentModalVisible" @close="closePaymentModal" :orderId="order.id" /> -->
 
-    <PaymentModal :isVisible="isPaymentModalVisible" @close="closePaymentModal" :orderId="order.id" @formSaved="refreshPayments" />
+    <PaymentModal :isVisible="isPaymentModalVisible" @close="closePaymentModal" :orderId="order.id"
+        @formSaved="refreshPayments" />
 
 </template>
 <script>
@@ -391,13 +405,20 @@ export default {
             axios.get(`/admin/pos-order/payment/${this.orderId}`)
                 .then(response => {
                     this.payments = response.data.payments;
-
-                    this.payment_status = res.data.data.payment_status;
+                    // Dispatch changePaymentStatus action with the correct payment_status value
+                    this.$store.dispatch('posOrder/show', this.$route.params.id).then(res => {
+                        this.payment_status = res.data.data.payment_status;
+                        console.log(this.payment_status);
+                        // Update other dynamic properties as needed
+                    }).catch((error) => {
+                        console.error('Error fetching order:', error);
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching payments:', error);
                 });
         },
+
     },
 
 }
