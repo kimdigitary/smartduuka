@@ -8,7 +8,7 @@
             <div
                 class="sub-header flex items-center gap-4 transition xh:justify-between xh:fixed xh:left-0 xh:w-full xh:p-4 xh:border-y xh:border-[#EFF0F6] xh:bg-white">
                 <div class="flex items-center justify-between md:justify-center gap-4">
-                    <div v-if="setting.site_language_switch === enums.activityEnum.ENABLE" class="dropdown-group relative">
+                    <!-- <div v-if="setting.site_language_switch === enums.activityEnum.ENABLE" class="dropdown-group relative">
                         <button class="dropdown-btn flex items-center gap-2 h-9 px-3 rounded-lg bg-[#FFEDF4]">
                             <img :src="language.image" alt="flag" class="w-4 h-4 rounded-full">
                             <span class="hidden md:block whitespace-nowrap text-xs font-medium capitalize text-heading">
@@ -23,7 +23,7 @@
                                 <span class="text-heading capitalize text-sm">{{ language.name }}</span>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
 
                     <router-link v-if="pos.permission"
                         class="w-9 h-9 rounded-lg flex items-center justify-center text-primary bg-[#FFEBD8]"
