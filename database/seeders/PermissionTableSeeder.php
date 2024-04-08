@@ -67,7 +67,7 @@ class PermissionTableSeeder extends Seeder
                 ]
             ],
             [
-                'title'      => 'Purchase',
+                'title'      => 'Product Stocking',
                 'name'       => 'purchase',
                 'guard_name' => 'sanctum',
                 'url'        => 'purchase',
@@ -75,7 +75,7 @@ class PermissionTableSeeder extends Seeder
                 'updated_at' => now(),
                 'children'   => [
                     [
-                        'title'      => 'Purchase Create',
+                        'title'      => 'Stocking Create',
                         'name'       => 'purchase_create',
                         'guard_name' => 'sanctum',
                         'url'        => 'purchase/create',
@@ -83,7 +83,7 @@ class PermissionTableSeeder extends Seeder
                         'updated_at' => now(),
                     ],
                     [
-                        'title'      => 'Purchase Edit',
+                        'title'      => 'Stocking Edit',
                         'name'       => 'purchase_edit',
                         'guard_name' => 'sanctum',
                         'url'        => 'purchase/edit',
@@ -91,7 +91,7 @@ class PermissionTableSeeder extends Seeder
                         'updated_at' => now(),
                     ],
                     [
-                        'title'      => 'Purchase Delete',
+                        'title'      => 'Stocking Delete',
                         'name'       => 'purchase_delete',
                         'guard_name' => 'sanctum',
                         'url'        => 'purchase/delete',
@@ -99,7 +99,7 @@ class PermissionTableSeeder extends Seeder
                         'updated_at' => now(),
                     ],
                     [
-                        'title'      => 'Purchase Show',
+                        'title'      => 'Stocking Show',
                         'name'       => 'purchase_show',
                         'guard_name' => 'sanctum',
                         'url'        => 'purchase/show',
