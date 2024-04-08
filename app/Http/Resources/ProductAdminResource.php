@@ -43,7 +43,7 @@ class ProductAdminResource extends JsonResource
             "product_tags"               => ProductTagResource::collection($this->tags),
             "category_name"              => $this?->category?->name,
             "order"                      => abs($this?->productOrders->sum('quantity')),
-            'currency_price'             => AppLibrary::currencyAmountFormat($price),
+            'currency_price'             => 'UGX '. $price,
             "cover"                      => $this->cover,
             'flash_sale'                 => $this->add_to_flash_sale == Ask::YES,
             'is_offer'                   => Carbon::now()->between($this->offer_start_date, $this->offer_end_date),
