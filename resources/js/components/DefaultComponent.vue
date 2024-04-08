@@ -39,7 +39,7 @@ export default {
         this.$store.dispatch('frontendSetting/lists').then(res => {
 
             this.$store.dispatch('frontendLanguage/show', res.data.data.site_default_language).then(res => {
-                
+
             }).catch();
 
             this.$store.dispatch("globalState/init", {
