@@ -38,7 +38,7 @@ export default [
                     isFrontend: false,
                     auth: true,
                     permissionUrl: "pos",
-                    breadcrumb: "",
+                    breadcrumb: "pos_credit_orders",
                 },
             },
             {
@@ -49,7 +49,7 @@ export default [
                     isFrontend: false,
                     auth: true,
                     permissionUrl: "pos",
-                    breadcrumb: "",
+                    breadcrumb: "pos_deposit_orders",
                 },
             },
             {
