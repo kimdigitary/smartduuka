@@ -202,9 +202,9 @@
                                         <!-- Add a unique identifier for the payment -->
                                         <td class="db-table-body-td">{{ formatDate(payment.created_at) }}</td>
                                         <!-- Display the payment date -->
-                                        <td class="db-table-body-td">UGX {{ payment.paid }}</td>
+                                        <td class="db-table-body-td">{{ payment.paid }}</td>
                                         <!-- Display the paid amount -->
-                                        <td class="db-table-body-td">UGX {{ payment.balance }}</td>
+                                        <td class="db-table-body-td">{{ payment.balance }}</td>
                                         <!-- Display the balance -->
                                         <!-- <td class="db-table-body-td hidden-print">
                                             <button @click="deletePayment(payment.id)">Delete</button>

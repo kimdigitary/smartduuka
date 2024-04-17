@@ -124,7 +124,7 @@
                     <div class="flex h-[38px] mb-4">
                         <div class="db-field-down-arrow">
                             <select v-model="paymentMethod" @change="handlePaymentMethodChange"
-                                class="w-[180px] h-full cursor-pointer text-sm font-client ltr:rounded-tl ltr:rounded-bl rtl:rounded-tr rtl:rounded-br appearance-none border ltr:pl-3 rtl:pr-3 text-heading border-[#EFF0F6]">
+                                class="w-[120px] h-full cursor-pointer text-sm font-client ltr:rounded-tl ltr:rounded-bl rtl:rounded-tr rtl:rounded-br appearance-none border ltr:pl-3 rtl:pr-3 text-heading border-[#EFF0F6]">
                                 <option value="4">Cash</option>
                                 <option value="2">Mobile Money</option>
                                 <option value="1">Cash on Delivery</option>
@@ -147,7 +147,7 @@
                     <div class="flex h-[38px] mb-4">
                         <div class="db-field-down-arrow">
                             <select v-model="purchaseMethod" @change="handlePurchaseMethodChange"
-                                class="w-[180px] h-full cursor-pointer text-sm font-client ltr:rounded-tl ltr:rounded-bl rtl:rounded-tr rtl:rounded-br appearance-none border ltr:pl-3 rtl:pr-3 text-heading border-[#EFF0F6]">
+                                class="w-[120px] h-full cursor-pointer text-sm font-client ltr:rounded-tl ltr:rounded-bl rtl:rounded-tr rtl:rounded-br appearance-none border ltr:pl-3 rtl:pr-3 text-heading border-[#EFF0F6]">
                                 <option value="10">Take away</option>
                                 <option value="20">Credit</option>
                                 <option value="25">Deposit</option>

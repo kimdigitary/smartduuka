@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PaymentStatus;
+use App\Libraries\AppLibrary;
 use App\Models\CreditDepositPurchase;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -22,6 +23,8 @@ class CreditDepositPurchaseController extends Controller
         // Modify the date format for each payment
         $formattedPayments = $creditDepositPurchase->map(function ($payment) {
             // Format the date as Month Date, Year (e.g., January 1, 2023)
+            $payment['paid'] = AppLibrary::currencyAmountFormat($payment['paid']);
+            $payment['balance'] = AppLibrary::currencyAmountFormat($payment['balance']);
             $payment['created_at'] = date('M d, Y', strtotime($payment['created_at']));
             $payment['updated_at'] = date('M d, Y', strtotime($payment['updated_at']));
             return $payment;

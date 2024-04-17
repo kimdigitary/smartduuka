@@ -21,7 +21,7 @@ class OrderResource extends JsonResource
             'id'                   => $this->id,
             'order_serial_no'      => $this->order_serial_no,
             'user_id'              => $this->user_id,
-            "total_amount_price"   => AppLibrary::flatAmountFormat($this->total),
+            "total_amount_price"   => AppLibrary::currencyAmountFormat($this->total),
             "total_currency_price" => AppLibrary::currencyAmountFormat($this->total),
             'payment_status'       => $this->payment_status,
             'status'               => $this->status,
@@ -30,8 +30,8 @@ class OrderResource extends JsonResource
             'order_datetime'       => AppLibrary::datetime($this->order_datetime),
             'user'                 => new UserResource($this->user),
             'purchase_type'        => $this->purchase_type,
-            'paid'                 => optional($latestCreditPurchase)->paid,
-            'balance'              => optional($latestCreditPurchase)->balance,
+            'paid'                 => AppLibrary::currencyAmountFormat(optional($latestCreditPurchase)->paid),
+            'balance'              => AppLibrary::currencyAmountFormat(optional($latestCreditPurchase)->balance),
         ];
     }
 }
