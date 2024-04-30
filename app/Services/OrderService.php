@@ -202,7 +202,7 @@ class OrderService
             $orderColumn = $request->get('order_column') ?? 'id';
             $orderType   = $request->get('order_by') ?? 'desc';
 
-            return Order::where('order_type', "!=", OrderType::POS)->where(function ($query) use ($requests, $user) {
+            return Order::where(function ($query) use ($requests, $user) {
                 $query->where('user_id', $user->id);
                 foreach ($requests as $key => $request) {
                     if (in_array($key, $this->orderFilter)) {
