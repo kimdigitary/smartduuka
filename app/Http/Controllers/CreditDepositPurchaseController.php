@@ -38,28 +38,36 @@ class CreditDepositPurchaseController extends Controller
         $creditDepositPurchase = CreditDepositPurchase::where('order_id', $orderId)
             ->latest()
             ->first();
-
+    
         if ($creditDepositPurchase->balance <= 0) {
             return response()->json(['message' => 'Balance is already 0. No action taken.']);
         }
-
+    
         $order = Order::find($orderId);
-
+    
         $saveCreditPurchase = new CreditDepositPurchase();
         $saveCreditPurchase->order_id = $orderId;
         $saveCreditPurchase->user_id = $creditDepositPurchase->user_id;
         $saveCreditPurchase->type = ($order->order_type == 20) ? 'credit' : 'deposit';
-        $saveCreditPurchase->paid = $request->amount;
-        $saveCreditPurchase->balance = $creditDepositPurchase->balance - $request->amount;
+        
+        // Check if entered amount is greater than current balance
+        if ($request->amount >= $creditDepositPurchase->balance) {
+            $saveCreditPurchase->paid = $creditDepositPurchase->balance;
+            $saveCreditPurchase->balance = 0;
+        } else {
+            $saveCreditPurchase->paid = $request->amount;
+            $saveCreditPurchase->balance = $creditDepositPurchase->balance - $request->amount;
+        }
+    
         $saveCreditPurchase->save();
-
-
+    
         if ($saveCreditPurchase->balance == 0) {
             $order->update([
                 'payment_status' => PaymentStatus::PAID
             ]);
         }
-
+    
         return response()->json(['message' => 'Balance updated successfully']);
     }
+    
 }

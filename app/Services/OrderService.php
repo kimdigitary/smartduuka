@@ -204,19 +204,19 @@ class OrderService
 
             return Order::where(function ($query) use ($requests, $user) {
                 $query->where('user_id', $user->id);
-                foreach ($requests as $key => $request) {
-                    if (in_array($key, $this->orderFilter)) {
-                        $query->where($key, 'like', '%' . $request . '%');
-                    }
-                    if (in_array($key, $this->exceptFilter)) {
-                        $explodes = explode('|', $request);
-                        if (is_array($explodes)) {
-                            foreach ($explodes as $explode) {
-                                $query->where('status', '!=', $explode);
-                            }
-                        }
-                    }
-                }
+                // foreach ($requests as $key => $request) {
+                //     if (in_array($key, $this->orderFilter)) {
+                //         $query->where($key, 'like', '%' . $request . '%');
+                //     }
+                //     if (in_array($key, $this->exceptFilter)) {
+                //         $explodes = explode('|', $request);
+                //         if (is_array($explodes)) {
+                //             foreach ($explodes as $explode) {
+                //                 $query->where('status', '!=', $explode);
+                //             }
+                //         }
+                //     }
+                // }
             })->orderBy($orderColumn, $orderType)->$method(
                 $methodValue
             );
