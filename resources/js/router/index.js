@@ -13,13 +13,14 @@ import salesReportRoutes from "./modules/salesReportRoutes";
 import administratorRoutes from "./modules/administratorRoutes";
 import customerRoutes from "./modules/customerRoutes";
 import employeeRoutes from "./modules/employeeRoutes";
-import purchaseRoutes  from "./modules/purchaseRoutes";
-import stockRoutes  from "./modules/stockRoutes";
+import purchaseRoutes from "./modules/purchaseRoutes";
+import stockRoutes from "./modules/stockRoutes";
 import damageRoutes from "./modules/damageRoutes";
 import productsReportRoutes from "./modules/productsReportRoutes";
 import posOrderRoutes from "./modules/posOrderRoutes";
 import posRoutes from "./modules/posRoutes";
-
+import expensesRoutes from "./modules/expensesRoutes";
+import categoriesRoutes from "./modules/categoriesRoutes";
 
 
 const baseRoutes = [
@@ -69,7 +70,8 @@ const routes = baseRoutes.concat(
     damageRoutes,
     productsReportRoutes,
     posOrderRoutes,
-    posRoutes
+    posRoutes,
+    expensesRoutes, categoriesRoutes
 );
 
 const permission = store.getters.authPermission;
@@ -82,7 +84,7 @@ const router = createRouter({
     history: createWebHashHistory(API_URL),
     routes,
     scrollBehavior() {
-        return { left: 0, top: 0}
+        return {left: 0, top: 0}
     }
 });
 

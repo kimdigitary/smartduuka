@@ -114,7 +114,6 @@ class AppLibrary
                 }
             }
         }
-
         return $buildArray;
     }
 
@@ -143,6 +142,7 @@ class AppLibrary
                 }
             }
         }
+        info($menus);
         return $menus;
     }
 

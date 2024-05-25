@@ -1,30 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+    namespace App\Http\Controllers\Admin;
 
 
-use Exception;
-use App\Http\Requests\PaginateRequest;
-use App\Http\Resources\MenuSectionResource;
-use App\Services\MenuSectionService;
+    use App\Http\Requests\PaginateRequest;
+    use App\Http\Resources\MenuSectionResource;
+    use App\Services\MenuSectionService;
+    use Exception;
+    use Illuminate\Contracts\Foundation\Application;
+    use Illuminate\Contracts\Routing\ResponseFactory;
+    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+    use Illuminate\Http\Response;
 
-class MenuSectionController extends AdminController
-{
-
-    private MenuSectionService $menuSectionService;
-
-    public function __construct(MenuSectionService $menuSection)
+    class MenuSectionController extends AdminController
     {
-        parent::__construct();
-        $this->menuSectionService = $menuSection;
-    }
 
-    public function index(PaginateRequest $request) : \Illuminate\Http\Response | \Illuminate\Http\Resources\Json\AnonymousResourceCollection | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory
-    {
-        try {
-            return MenuSectionResource::collection($this->menuSectionService->list($request));
-        } catch (Exception $exception) {
-            return response(['status' => false, 'message' => $exception->getMessage()], 422);
+        private MenuSectionService $menuSectionService;
+
+        public function __construct(MenuSectionService $menuSection)
+        {
+            parent ::__construct();
+            $this -> menuSectionService = $menuSection;
+        }
+
+        public function index(PaginateRequest $request
+        ) : Response | AnonymousResourceCollection | Application | ResponseFactory {
+            try {
+                return MenuSectionResource ::collection($this -> menuSectionService -> list($request));
+            } catch (Exception $exception) {
+                return response(['status' => false, 'message' => $exception -> getMessage()], 422);
+            }
         }
     }
-}

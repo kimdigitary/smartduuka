@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "ext-http": "*",
         "dipokhalder/laravel-env-editor": "^1.0",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",

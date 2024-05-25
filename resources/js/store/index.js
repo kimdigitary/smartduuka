@@ -48,6 +48,7 @@ import {posProductVariation} from "./modules/posProductVariation";
 import {posProductCategory} from "./modules/posProductCategory";
 import {posProduct} from "./modules/posProduct";
 import {posCart} from "./modules/posCart";
+import {expenseCategory} from "./modules/expenseCategory.js";
 export default new createStore({
     state: {},
     mutations: {},
@@ -99,7 +100,8 @@ export default new createStore({
         posProductVariation,
         posProductCategory,
         posProduct,
-        posCart
+        posCart,
+        expenseCategory
     },
     plugins: [
         createPersistedState({

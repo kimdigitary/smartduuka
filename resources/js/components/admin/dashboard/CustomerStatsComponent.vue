@@ -1,11 +1,11 @@
 <template>
-  <LoadingComponent :props="loading" />
+  <LoadingComponent :props="loading"/>
   <div class="col-12 xl:col-6">
     <div class="db-card">
       <div class="db-card-header">
         <h3 class="font-semibold text-lg capitalize text-heading">{{ $t('label.order_stats') }}</h3>
         <div id="customer-range" class="cursor-pointer flex items-center gap-3">
-          <DatePickerComponent @update:modelValue="customerStates" inputStyle="read" />
+          <DatePickerComponent @update:modelValue="customerStates" inputStyle="read"/>
         </div>
       </div>
       <div class="db-card-body">
@@ -18,9 +18,10 @@
 <script>
 import LoadingComponent from "../components/LoadingComponent";
 import DatePickerComponent from "../components/DatePickerComponent";
+
 export default {
   name: "CustomerStatsComponent",
-  components: { LoadingComponent, DatePickerComponent },
+  components: {LoadingComponent, DatePickerComponent},
   data() {
     return {
       loading: {
@@ -58,8 +59,8 @@ export default {
             type: 'bar',
             height: 298,
             parentHeightOffset: 0,
-            zoom: { enabled: false },
-            toolbar: { show: false },
+            zoom: {enabled: false},
+            toolbar: {show: false},
           },
           plotOptions: {
             bar: {
@@ -86,15 +87,15 @@ export default {
             }
           },
           colors: ['#567DFF'],
-          grid: { show: false, },
-          yaxis: { show: false },
-          dataLabels: { enabled: false },
+          grid: {show: false,},
+          yaxis: {show: false},
+          dataLabels: {enabled: false},
         };
 
         let chart = new ApexCharts(document.querySelector("#column-chart"), options);
         chart.render();
         if (date.first_date !== '' && date.last_date !== '') {
-          chart.updateSeries([{ data: res.data.data.total_customers }]);
+          chart.updateSeries([{data: res.data.data.total_customers}]);
         }
         this.loading.isActive = false;
       }).catch((err) => {

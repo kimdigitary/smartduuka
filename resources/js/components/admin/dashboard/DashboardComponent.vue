@@ -1,13 +1,8 @@
 <template>
     <LoadingComponent :props="loading" />
-    <div v-if="demo === 'true' || demo === 'TRUE' || demo === 'True' || demo === '1' || demo === 1"
-        class="mb-4 bg-red-100 p-2 pl-4  rounded">
-        <h2 class="mb-1">{{ $t('label.reminder') }}</h2>
-        <p>{{ $t('label.data_reset') }}</p>
-    </div>
 
     <div class="mb-8">
-        <h3 class="capitalize font-bold text-2xl text-primary mb-1.5">{{ visitorMessage() }}</h3>
+<!--        <h3 class="capitalize font-bold text-2xl text-primary mb-1.5">{{ visitorMessage() }}</h3>-->
         <h4 class="capitalize font-medium text-xl text-secondary">{{ authInfo.name }}</h4>
     </div>
     <!--========OVERVIEW START=============-->
