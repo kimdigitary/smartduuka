@@ -29,6 +29,7 @@
         "@vueuse/head": "^2.0.0",
         "babel-loader": "^9.1.0",
         "city-state-country": "^2.1.0",
+        "date-fns": "^3.6.0",
         "firebase": "^10.5.0",
         "laravel-vue-pagination": "^4.1.1",
         "swiper": "^10.2.0",

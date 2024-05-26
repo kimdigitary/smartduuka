@@ -1,7 +1,3 @@
-import ProductComponent from "../../components/admin/products/ProductComponent";
-import ProductListComponent from "../../components/admin/products/ProductListComponent";
-import ProductShowComponent from "../../components/admin/products/ProductShowComponent";
-import expenseComponent from "../../components/admin/expenses/ExpenseComponent.vue";
 import ExpenseComponent from "../../components/admin/expenses/ExpenseComponent.vue";
 import expensetListComponent from "../../components/admin/expenses/ExpensetListComponent.vue";
 import ExpenseShowComponent from "../../components/admin/expenses/ExpenseShowComponent.vue";

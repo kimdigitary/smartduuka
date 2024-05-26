@@ -103,6 +103,7 @@
 
         Route ::prefix('dashboard') -> name('dashboard.') -> group(function () {
             Route ::get('/total-sales', [DashboardController::class, 'totalSales']);
+            Route ::get('/total-expenses', [DashboardController::class, 'totalExpenses']);
             Route ::get('/total-orders', [DashboardController::class, 'totalOrders']);
             Route ::get('/total-customers', [DashboardController::class, 'totalCustomers']);
             Route ::get('/total-products', [DashboardController::class, 'totalProducts']);
@@ -248,6 +249,7 @@
 
         Route ::resource('expenses', ExpensesController::class);
         Route ::resource('expense-categories', ExpenseCategoryController::class);
+        Route ::get('expense-categories-export', [ExpenseCategoryController::class, 'export']);
 
         Route ::prefix('product') -> name('product.') -> group(function () {
             Route ::get('/', [ProductController::class, 'index']);

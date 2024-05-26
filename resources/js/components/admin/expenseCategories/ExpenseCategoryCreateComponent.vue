@@ -14,7 +14,7 @@
             <label for="name" class="db-field-title required">{{ $t("label.name") }}</label>
             <input v-model="props.form.name" v-bind:class="errors.name ? 'invalid' : ''" type="text" id="name"
                    class="db-field-control">
-            <small class="db-field-alert" v-if="errors.name">{{ errors.name[0] }}</small>
+            <small class="db-field-alert" v-if="errors.name">{{ errors.name }}</small>
           </div>
 
           <div class="col-12">
@@ -81,9 +81,13 @@ export default {
             name: ""
           }
           this.errors = {};
-        }).catch((err) => {
+        }).catch(({response}) => {
           this.loading.isActive = false;
-          this.errors = err.response.data.errors;
+          if (response.data) {
+            Object.entries(response.data.data).forEach(([key, value]) => {
+              this.errors = {[key]: value};
+            });
+          }
         })
       } catch (err) {
         this.loading.isActive = false;

@@ -142,7 +142,6 @@ class AppLibrary
                 }
             }
         }
-        info($menus);
         return $menus;
     }
 

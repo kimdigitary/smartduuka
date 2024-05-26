@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="db-card">
       <div class="db-card-header border-none">
-        <h3 class="db-card-title">{{ $t('menu.products') }}</h3>
+        <h3 class="db-card-title">Category</h3>
         <div class="db-card-filter">
           <TableLimitComponent :method="list" :search="props.search" :page="paginationPage"/>
           <FilterComponent/>
@@ -51,7 +51,7 @@
               {{ $t('label.name') }}
             </th>
             <th class="db-table-head-th hidden-print"
-                v-if="permissionChecker('products_show') || permissionChecker('products_edit') || permissionChecker('products_delete')">
+                v-if="permissionChecker('products_edit') || permissionChecker('products_delete')">
               {{ $t('label.action') }}
             </th>
           </tr>
@@ -64,8 +64,6 @@
             <td class="db-table-body-td hidden-print"
                 v-if="permissionChecker('products_show') || permissionChecker('products_edit') || permissionChecker('products_delete')">
               <div class="flex justify-start items-center sm:items-start sm:justify-start gap-1.5">
-                <SmIconViewComponent :link="'admin.product.show'" :id="product.id"
-                                     v-if="permissionChecker('products_show')"/>
                 <SmIconSidebarModalEditComponent @click="edit(product)"
                                                  v-if="permissionChecker('products_edit')"/>
                 <SmIconDeleteComponent @click="destroy(product.id)"
@@ -105,7 +103,6 @@ import ExportComponent from "../components/buttons/export/ExportComponent";
 import PrintComponent from "../components/buttons/export/PrintComponent";
 import ExcelComponent from "../components/buttons/export/ExcelComponent";
 import activityEnum from "../../../enums/modules/activityEnum";
-import _ from "lodash";
 import ExpenseCategoryCreateComponent from "./ExpenseCategoryCreateComponent.vue";
 
 export default {
@@ -243,7 +240,7 @@ export default {
         });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = this.$t("menu.products");
+        link.download = 'ExpenseCategory.xlsx';
         link.click();
         URL.revokeObjectURL(link.href);
       }).catch((err) => {

@@ -16,9 +16,13 @@ export const dashboard = {
         depositSales: [],
         inStock: [],
         outStock: [],
+        totalExpenses: [],
     },
 
     getters: {
+        totalExpenses: function (state) {
+            return state.totalExpenses;
+        },
         totalSales: function (state) {
             return state.totalSales;
         },
@@ -58,7 +62,7 @@ export const dashboard = {
     },
 
     actions: {
-        totalSales: function (context,payload) {
+        totalSales: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/total-sales";
                 if (payload) {
@@ -74,7 +78,23 @@ export const dashboard = {
                     });
             });
         },
-        totalOrders: function (context,payload) {
+        totalExpenses: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/total-expenses";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url)
+                    .then((res) => {
+                        context.commit("totalExpenses", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        totalOrders: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/total-orders";
                 if (payload) {
@@ -90,22 +110,22 @@ export const dashboard = {
                     });
             });
         },
-        totalCustomers: function (context,payload) {
+        totalCustomers: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/total-customers";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("totalCustomers", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("totalCustomers", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        creditSales: function (context,payload) {
+        creditSales: function (context, payload) {
             console.log(payload);
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/credit-sales";
@@ -113,99 +133,99 @@ export const dashboard = {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("creditSales", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("creditSales", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        depositSales: function (context,payload) {
+        depositSales: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/deposit-sales";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("depositSales", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("depositSales", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        inStock: function (context,payload) {
+        inStock: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/in-stock";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("inStock", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("inStock", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        outStock: function (context,payload) {
+        outStock: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/out-stock";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("outStock", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("outStock", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        totalProducts: function (context,payload) {
+        totalProducts: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/total-products";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("totalProducts", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("totalProducts", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        salesSummary: function (context,payload) {
+        salesSummary: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/sales-summary";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("salesSummary", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("salesSummary", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
             });
         },
-        customerStates: function (context,payload) {
+        customerStates: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/customer-states";
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                        context.commit("customerStates", res.data.data);
-                        resolve(res);
-                    })
+                    context.commit("customerStates", res.data.data);
+                    resolve(res);
+                })
                     .catch((err) => {
                         reject(err);
                     });
@@ -229,6 +249,9 @@ export const dashboard = {
     mutations: {
         totalSales: function (state, payload) {
             state.totalSales = payload;
+        },
+        totalExpenses: function (state, payload) {
+            state.totalExpenses = payload;
         },
         totalOrders: function (state, payload) {
             state.totalOrders = payload;

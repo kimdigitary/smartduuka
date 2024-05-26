@@ -1,8 +1,7 @@
 import axios from 'axios'
 import appService from "../../services/appService";
 
-
-export const expenseCategory = {
+export const expense = {
     namespaced: true,
     state: {
         lists: [],
@@ -28,7 +27,6 @@ export const expenseCategory = {
         page: function (state) {
             return state.page;
         },
-
         temp: function (state) {
             return state.temp;
         },
@@ -36,7 +34,7 @@ export const expenseCategory = {
     actions: {
         lists: function (context, payload) {
             return new Promise((resolve, reject) => {
-                let url = 'admin/expense-categories';
+                let url = 'admin/expenses';
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
@@ -53,12 +51,11 @@ export const expenseCategory = {
         save: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let method = axios.post;
-                let url = '/admin/expense-categories';
-                if (this.state['expenseCategory'].temp.isEditing) {
+                let url = '/admin/expenses';
+                if (this.state['expense'].temp.isEditing) {
                     method = axios.put;
-                    url = `/admin/expense-categories/${this.state['expenseCategory'].temp.temp_id}`;
+                    url = `/admin/expenses/${this.state['expense'].temp.temp_id}`;
                 }
-                payload.form.user_id = this.state['auth'].authInfo.id;
                 method(url, payload.form).then(res => {
                     context.dispatch('lists', payload.search).then().catch();
                     context.commit('reset');
@@ -73,7 +70,7 @@ export const expenseCategory = {
         },
         destroy: function (context, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete(`admin/expense-categories/${payload.id}`).then((res) => {
+                axios.delete(`admin/expenses/${payload.id}`).then((res) => {
                     context.dispatch('lists', payload.search).then().catch();
                     resolve(res);
                 }).catch((err) => {
@@ -81,9 +78,10 @@ export const expenseCategory = {
                 });
             });
         },
+        // api/admin/expenses/{expense}
         show: function (context, payload) {
             return new Promise((resolve, reject) => {
-                axios.get(`admin/product/show/${payload}`).then((res) => {
+                axios.get(`admin/expenses/${payload}`).then((res) => {
                     context.commit('show', res.data.data);
                     resolve(res);
                 }).catch((err) => {
