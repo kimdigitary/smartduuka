@@ -68,7 +68,6 @@ export default {
         name: ""
       };
     },
-
     save: function () {
       try {
         const tempId = this.$store.getters['product/temp'].temp_id;
