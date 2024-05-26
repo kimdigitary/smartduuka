@@ -271,7 +271,6 @@ import appService from "../../../services/appService";
 import VueTagsInput from "@sipec/vue3-tags-input";
 import { quillEditor } from 'vue3-quill'
 
-
 export default {
     name: "ProductCreateComponent",
     components: { SmSidebarModalCreateComponent, LoadingComponent, quillEditor, VueTagsInput },

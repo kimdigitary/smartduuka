@@ -114,7 +114,6 @@ class AppLibrary
                 }
             }
         }
-
         return $buildArray;
     }
 

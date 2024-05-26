@@ -1,0 +1,2 @@
+INSERT INTO `menus` (`id`, `name`, `language`, `url`, `icon`, `status`, `parent`, `type`, `priority`, `created_at`, `updated_at`) VALUES (NULL, 'Expenses', 'expenses', '#', 'lab lab-item', '1', '0', '1', '100', '2024-05-21 14:22:19', '2024-05-21 14:22:19');
+

@@ -29,6 +29,7 @@
         "role_permissions": "Role & Permissions",
         "products": "Products",
         "product_and_stock": "Product & Stock",
+        "expenses": "Expenses",
         "pos_and_orders": "POS & Orders",
         "promo": "Promo",
         "communications": "Communications",

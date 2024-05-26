@@ -1,4 +1,4 @@
-const askEnum = Object.freeze({
+export const askEnum = Object.freeze({
     YES: 5,
     NO: 10
 });
