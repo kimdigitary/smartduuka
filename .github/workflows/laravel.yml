@@ -26,5 +26,5 @@ jobs:
           script: |
             cd /var/www/projects/smartduuka-dev/smartduuka
             git pull
-            Please run composer update
+            composer update
             php artisan migrate
