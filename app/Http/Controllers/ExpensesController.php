@@ -63,9 +63,6 @@
                     'user_id'       => $this -> id(),
                 ]);
                 $stored  = $this -> saveFiles($request, $expense, ['attachment' => 'attachment']);
-                if ($request -> file) {
-                    $expense -> addMediaFromRequest('attachment') -> toMediaCollection('attachment');
-                }
                 if ($stored && $expense) {
                     DB ::commit();
                     return $this -> response(true, message : 'success', data : $expense);
@@ -76,6 +73,7 @@
             } catch (Exception $exception) {
                 info($exception -> getMessage());
                 DB ::rollBack();
+                return $this -> response(message :$exception -> getMessage());
             }
         }
 
