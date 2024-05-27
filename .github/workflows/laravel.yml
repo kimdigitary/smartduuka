@@ -28,5 +28,5 @@ jobs:
             git pull origin dev
             composer update
             php artisan migrate
-            npm install
+            npm update
             npm run production
