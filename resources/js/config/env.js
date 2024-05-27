@@ -6,4 +6,3 @@ const ENV = {
     DEMO: process.env.MIX_DEMO
 };
 export default ENV;
-
