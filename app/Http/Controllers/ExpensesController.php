@@ -56,7 +56,6 @@
                     'amount'        => $request -> amount,
                     'date'          => date('Y-m-d H:i:s', strtotime($request -> date)),
                     'category'      => $request -> category,
-                    'note'          => $request -> note,
                     'paymentMethod' => $request -> paymentMethod,
                     'referenceNo'   => $request -> referenceNo,
                     'recurs'        => $request -> recurs,

@@ -211,7 +211,7 @@ export default {
     this.paymentMethods = [
       {id: 1, name: 'Cash'},
       {id: 2, name: 'Mobile Money'},
-      {id: 3, name: 'Bank'},
+      {id: 3, name: 'Check'},
       {id: 4, name: 'Bank Transfer'},
     ]
 
