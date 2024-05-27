@@ -56,9 +56,7 @@ export default {
       errors: {},
     }
   },
-  mounted() {
 
-  },
   methods: {
     reset: function () {
       appService.sideDrawerHide();
