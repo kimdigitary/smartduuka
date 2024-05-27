@@ -14,7 +14,6 @@
     class ExpenseCategoryController extends Controller
     {
         use ApiResponse, AuthUser;
-
         public function index(Request $request)
         {
             $name = $request -> name;
