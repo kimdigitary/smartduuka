@@ -6,7 +6,6 @@ use App\Libraries\AppLibrary;
 use App\Models\Menu;
 use Illuminate\Database\Seeder;
 
-
 class MenuExpenseSeeder extends Seeder
 {
     public function run()
