@@ -24,8 +24,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /var/www/projects/smartduuka-dev/smartduuka
-            git pull
+            cd /var/www/projects/smartduuka-dev
+            git pull origin dev
             composer update
             php artisan migrate
             npm run production
