@@ -24,7 +24,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /home/demo/public_html
+            cd /home/test/public_html
             git pull origin dev
             composer update
             php artisan migrate
