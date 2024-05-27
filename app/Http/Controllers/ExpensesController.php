@@ -62,8 +62,8 @@
                     'recurs'        => $request -> recurs,
                     'user_id'       => $this -> id(),
                 ]);
-                $stored  = $this -> saveFiles($request, $expense, ['attachment' => 'attachment']);
-                if ($stored && $expense) {
+                $this -> saveFiles($request, $expense, ['attachment' => 'attachment']);
+                if ($expense) {
                     DB ::commit();
                     return $this -> response(true, message : 'success', data : $expense);
                 } else {
