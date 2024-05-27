@@ -28,3 +28,4 @@ jobs:
             git pull
             composer update
             php artisan migrate
+            npm run production
