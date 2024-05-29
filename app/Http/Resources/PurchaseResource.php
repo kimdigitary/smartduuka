@@ -24,6 +24,7 @@ class PurchaseResource extends JsonResource
             'status'               => $this->status,
             'payment_status'       => $this->payment_status,
             'total'                => $this->total,
+            'balance'              => AppLibrary::flatAmountFormat($this->balance),
             'total_currency_price' => AppLibrary::currencyAmountFormat($this->total),
             'total_flat_price'     => AppLibrary::flatAmountFormat($this->total),
             'note'                 => $this->note,

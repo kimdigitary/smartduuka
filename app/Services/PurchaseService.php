@@ -89,6 +89,7 @@ class PurchaseService
                     'subtotal'       => $request->subtotal,
                     'tax'            => $request->tax,
                     'discount'       => $request->discount,
+                    'balance'        => $request->amount,
                     'total'          => $request->total,
                     'note'           => $request->note ? $request->note : "",
                     'status'         => $request->status,

@@ -114,6 +114,10 @@
             Route ::get('/deposit-sales', [DashboardController::class, 'depositSales']);
             Route ::get('/in-stock', [DashboardController::class, 'inStock']);
             Route ::get('/out-stock', [DashboardController::class, 'outStock']);
+            Route ::get('/stock-value', [DashboardController::class, 'stockValue']);
+            Route ::get('/vendor-balance', [DashboardController::class, 'vendorBalance']);
+            Route ::get('/net-profit', [DashboardController::class, 'netProfit']);
+            Route ::get('/gross-profit', [DashboardController::class, 'grossProfit']);
         });
 
         Route ::prefix('setting') -> name('setting.') -> group(function () {
@@ -409,177 +413,19 @@
         });
     });
 
-    Route::prefix('product')->name('product.')->group(function () {
-        Route::get('/', [ProductController::class, 'index']);
-        Route::get('/show/{product}', [ProductController::class, 'show']);
-        Route::get('/pos-product/{product}', [ProductController::class, 'posProduct']);
-        Route::post('/', [ProductController::class, 'store']);
-        Route::match(['post', 'put', 'patch'], '/{product}', [ProductController::class, 'update']);
-        Route::delete('/{product}', [ProductController::class, 'destroy']);
-        Route::post('/upload-image/{product}', [ProductController::class, 'uploadImage']);
-        Route::get('/delete-image/{product}/{index}', [ProductController::class, 'deleteImage']);
-        Route::get('/export', [ProductController::class, 'export']);
-        Route::get('/generate-sku', [ProductController::class, 'generateSku']);
-        Route::post('/offer/{product}', [ProductController::class, 'productOffer']);
-        Route::get('/purchasable-product', [ProductController::class, 'purchasableProducts']);
-        Route::get('/simple-product', [ProductController::class, 'simpleProducts']);
-
-        Route::prefix('variation')->name('variation.')->group(function () {
-            Route::get('/{product}', [ProductVariationController::class, 'index']);
-            Route::get('/{product}/tree', [ProductVariationController::class, 'tree']);
-            Route::get('/{product}/single-tree', [ProductVariationController::class, 'singleTree']);
-            Route::get('/{product}/tree-with-selected', [ProductVariationController::class, 'treeWithSelected']);
-            Route::post('/{product}/store', [ProductVariationController::class, 'store']);
-            Route::match(['post', 'put', 'patch'], '/{product}/update/{productVariation}', [ProductVariationController::class, 'update']);
-            Route::delete('/{product}/destroy/{productVariation}', [ProductVariationController::class, 'destroy']);
-            Route::get('/{product}/show/{productVariation}', [ProductVariationController::class, 'show']);
-            Route::get('/ancestors-and-self/{productVariation}', [ProductVariationController::class, 'ancestorsToString']);
+    Route ::prefix('frontend') -> name('frontend.') -> middleware(['installed', 'localization']) -> group(function () {
+        Route ::prefix('setting') -> name('setting.') -> group(function () {
+            Route ::get('/', [FrontendSettingController::class, 'index']);
         });
 
-        Route::get('/initial-variation/{product}', [ProductVariationController::class, 'initialVariation']);
-        Route::get('/children-variation/{productVariation}', [ProductVariationController::class, 'childrenVariation']);
-        Route::get('/ancestors-and-self-id/{productVariation}', [ProductVariationController::class, 'ancestorsAndSelfId']);
-    });
+        Route ::prefix('country-code') -> name('country-code.') -> group(function () {
+            Route ::get('/', [FrontendCountryCodeController::class, 'index']);
+            Route ::get('/show/{country}', [FrontendCountryCodeController::class, 'show']);
+            Route ::get('/calling-code/{callingCode}', [FrontendCountryCodeController::class, 'callingCode']);
+        });
 
-    Route::prefix('country-code')->name('country-code.')->group(function () {
-        Route::get('/', [CountryCodeController::class, 'index']);
-        Route::get('/show/{country}', [CountryCodeController::class, 'show']);
-        Route::get('/calling-code/{callingCode}', [CountryCodeController::class, 'callingCode']);
+        Route ::prefix('language') -> name('language.') -> group(function () {
+            Route ::get('/', [FrontendLanguageController::class, 'index']);
+            Route ::get('/show/{language}', [FrontendLanguageController::class, 'show']);
+        });
     });
-
-    Route::prefix('administrator')->name('administrator.')->group(function () {
-        Route::get('/', [AdministratorController::class, 'index']);
-        Route::get('/show/{administrator}', [AdministratorController::class, 'show']);
-        Route::post('/', [AdministratorController::class, 'store']);
-        Route::match(['post', 'put', 'patch'], '/{administrator}', [AdministratorController::class, 'update']);
-        Route::delete('/{administrator}', [AdministratorController::class, 'destroy']);
-        Route::get('/export', [AdministratorController::class, 'export']);
-        Route::post('/change-password/{administrator}', [AdministratorController::class, 'changePassword']);
-        Route::post('/change-image/{administrator}', [AdministratorController::class, 'changeImage']);
-        Route::get('/my-order/{administrator}', [AdministratorController::class, 'myOrder']);
-        Route::get('/address/{administrator}', [AdministratorAddressController::class, 'index']);
-        Route::get('/address/show/{administrator}/{address}', [AdministratorAddressController::class, 'show']);
-        Route::post('/address/{administrator}', [AdministratorAddressController::class, 'store']);
-        Route::match(['put', 'patch'], '/address/{administrator}/{address}', [AdministratorAddressController::class, 'update']);
-        Route::delete('/address/{administrator}/{address}', [AdministratorAddressController::class, 'destroy']);
-    });
-
-    Route::prefix('customer')->name('customer.')->group(function () {
-        Route::get('/', [CustomerController::class, 'index']);
-        Route::post('/', [CustomerController::class, 'store']);
-        Route::get('/show/{customer}', [CustomerController::class, 'show']);
-        Route::match(['post', 'put', 'patch'], '/{customer}', [CustomerController::class, 'update']);
-        Route::delete('/{customer}', [CustomerController::class, 'destroy']);
-        Route::get('/export', [CustomerController::class, 'export']);
-        Route::post('/change-password/{customer}', [CustomerController::class, 'changePassword']);
-        Route::post('/change-image/{customer}', [CustomerController::class, 'changeImage']);
-        Route::get('/my-order/{customer}', [CustomerController::class, 'myOrder']);
-        Route::get('/address/{customer}', [CustomerAddressController::class, 'index']);
-        Route::get('/address/show/{customer}/{address}', [CustomerAddressController::class, 'show']);
-        Route::post('/address/{customer}', [CustomerAddressController::class, 'store']);
-        Route::match(['put', 'patch'], '/address/{customer}/{address}', [CustomerAddressController::class, 'update']);
-        Route::delete('/address/{customer}/{address}', [CustomerAddressController::class, 'destroy']);
-    });
-
-    Route::prefix('employee')->name('employee.')->group(function () {
-        Route::get('/', [EmployeeController::class, 'index']);
-        Route::post('/', [EmployeeController::class, 'store']);
-        Route::get('/show/{employee}', [EmployeeController::class, 'show']);
-        Route::match(['put', 'patch'], '/{employee}', [EmployeeController::class, 'update']);
-        Route::delete('/{employee}', [EmployeeController::class, 'destroy']);
-        Route::get('/export', [EmployeeController::class, 'export']);
-        Route::post('/change-password/{employee}', [EmployeeController::class, 'changePassword']);
-        Route::post('/change-image/{employee}', [EmployeeController::class, 'changeImage']);
-        Route::get('/my-order/{employee}', [EmployeeController::class, 'myOrder']);
-        Route::get('/address/{employee}', [EmployeeAddressController::class, 'index']);
-        Route::get('/address/show/{employee}/{address}', [EmployeeAddressController::class, 'show']);
-        Route::post('/address/{employee}', [EmployeeAddressController::class, 'store']);
-        Route::match(['put', 'patch'], '/address/{employee}/{address}', [EmployeeAddressController::class, 'update']);
-        Route::delete('/address/{employee}/{address}', [EmployeeAddressController::class, 'destroy']);
-    });
-
-    Route::prefix('my-order')->name('my-order.')->group(function () {
-        Route::get('/show/{user}/{order}', [MyOrderDetailsController::class, 'orderDetails']);
-    });
-
-    Route::prefix('sales-report')->name('sales-report.')->group(function () {
-        Route::get('/', [SalesReportController::class, 'index']);
-        Route::get('/export', [SalesReportController::class, 'export']);
-    });
-
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::get('/', [SimpleUserController::class, 'index']);
-    });
-
-    Route::prefix('purchase')->name('purchase.')->group(function () {
-        Route::get('/', [PurchaseController::class, 'index']);
-        Route::post('/', [PurchaseController::class, 'store']);
-        Route::get('/show/{purchase}', [PurchaseController::class, 'show']);
-        Route::get('/edit/{purchase}', [PurchaseController::class, 'edit']);
-        Route::match(['post', 'put', 'patch'], '/update/{purchase}', [PurchaseController::class, 'update']);
-        Route::delete('/{purchase}', [PurchaseController::class, 'destroy']);
-        Route::get('/export', [PurchaseController::class, 'export']);
-        Route::get('/download-attachment/{purchase}', [PurchaseController::class, 'downloadAttachment']);
-        Route::get('/payment/{purchase}', [PurchaseController::class, 'paymentHistory']);
-        Route::post('/payment/{purchase}', [PurchaseController::class, 'payment']);
-        Route::get('/payment/download-attachment/{purchasePayment}', [PurchaseController::class, 'paymentDownloadAttachment']);
-        Route::delete('/payment/{purchase}/{purchasePayment}', [PurchaseController::class, 'paymentDestroy']);
-    });
-
-    Route::prefix('stock')->name('stock.')->group(function () {
-        Route::get('/', [StockController::class, 'index']);
-        Route::get('/export', [StockController::class, 'export']);
-    });
-
-    Route::prefix('damage')->name('damage.')->group(function () {
-        Route::get('/', [DamageController::class, 'index']);
-        Route::post('/', [DamageController::class, 'store']);
-        Route::get('/show/{damage}', [DamageController::class, 'show']);
-        Route::get('/edit/{damage}', [DamageController::class, 'edit']);
-        Route::match(['post', 'put', 'patch'], '/update/{damage}', [DamageController::class, 'update']);
-        Route::delete('/{damage}', [DamageController::class, 'destroy']);
-        Route::get('/export', [DamageController::class, 'export']);
-        Route::get('/download-attachment/{damage}', [DamageController::class, 'downloadAttachment']);
-    });
-
-
-    Route::prefix('products-report')->name('products-report.')->group(function () {
-        Route::get('/', [ProductsReportController::class, 'index']);
-        Route::get('/export', [ProductsReportController::class, 'export']);
-    });
-
-    Route::prefix('pos-order')->name('posOrder.')->group(function () {
-        Route::get('/', [PosOrderController::class, 'index']);
-        Route::get('/credits', [PosOrderController::class, 'indexCredit']);
-        Route::get('/deposits', [PosOrderController::class, 'indexDeposit']);
-        Route::get('show/{order}', [PosOrderController::class, 'show']);
-        Route::delete('/{order}', [PosOrderController::class, 'destroy']);
-        Route::get('/export', [PosOrderController::class, 'export']);
-        Route::post('/change-status/{order}', [PosOrderController::class, 'changeStatus']);
-        Route::post('/change-payment-status/{order}', [PosOrderController::class, 'changePaymentStatus']);
-        Route::get('/payment/{order}', [CreditDepositPurchaseController::class, 'index']);
-        Route::post('/payment/{order}', [CreditDepositPurchaseController::class, 'updateBalance']);
-    });
-
-    Route::prefix('pos')->name('pos.')->group(function () {
-        Route::post('/', [PosController::class, 'store']);
-        Route::post('/customer', [PosController::class, 'storeCustomer']);
-    });
-});
-
-Route::prefix('frontend')->name('frontend.')->middleware(['installed', 'localization'])->group(function () {
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/', [FrontendSettingController::class, 'index']);
-    });
-
-    Route::prefix('country-code')->name('country-code.')->group(function () {
-        Route::get('/', [FrontendCountryCodeController::class, 'index']);
-        Route::get('/show/{country}', [FrontendCountryCodeController::class, 'show']);
-        Route::get('/calling-code/{callingCode}', [FrontendCountryCodeController::class, 'callingCode']);
-    });
-
-    Route::prefix('language')->name('language.')->group(function () {
-        Route::get('/', [FrontendLanguageController::class, 'index']);
-        Route::get('/show/{language}', [FrontendLanguageController::class, 'show']);
-    });
-});

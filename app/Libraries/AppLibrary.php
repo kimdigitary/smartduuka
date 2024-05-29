@@ -224,11 +224,11 @@ class AppLibrary
         //     return env('CURRENCY_SYMBOL') .' '. number_format($amount, env('CURRENCY_DECIMAL_POINT'), '.', '');
         // }
         // return number_format($amount, env('CURRENCY_DECIMAL_POINT'), '.', '') . env('CURRENCY_SYMBOL');
-        if (env('CURRENCY_POSITION') == CurrencyPosition::LEFT) {
-            return env('CURRENCY_SYMBOL') . ' ' . number_format($amount, 0, '.', ',');
-        }
-        return number_format($amount, 0, '.', ',') . ' ' . env('CURRENCY_SYMBOL');
-
+        // if (env('CURRENCY_POSITION') == CurrencyPosition::LEFT) {
+        //     return env('CURRENCY_SYMBOL') . ' ' . number_format($amount, 0, '.', ',');
+        // }
+        // return number_format($amount, 0, '.', ',') . ' ' . env('CURRENCY_SYMBOL');
+        return env('CURRENCY_SYMBOL') . ' ' . number_format($amount, 0, '.', ',');
     }
 
     public static function flatAmountFormat($amount): string
