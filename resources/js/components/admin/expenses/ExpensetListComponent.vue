@@ -14,7 +14,12 @@
               <ExcelComponent :method="xls"/>
             </div>
           </div>
-          <ExpenseCreateComponent :props="props" v-if="permissionChecker('products_create')"/>
+          <!--          <ExpenseCreateComponent :props="props" v-if="permissionChecker('products_create')"/>-->
+          <router-link @click="reset" to="expenses/create"
+                       class="db-btn h-[37px] text-white bg-primary">
+            <i class="lab lab-line-add-circle"></i>
+            <span>Add Expense</span>
+          </router-link>
         </div>
       </div>
 
@@ -87,6 +92,16 @@
                                      v-if="permissionChecker('products_show')"/>
                 <SmIconSidebarModalEditComponent @click="edit(expense)"
                                                  v-if="permissionChecker('products_edit')"/>
+                <button type="button" data-modal="#purchasePayment" @click="addPayment(expense.id)"
+                        class="db-table-action">
+                  <i class="lab lab-line-card text-blue-500 bg-blue-100"></i>
+                  <span class="db-tooltip">{{ $t('button.add_payment') }}</span>
+                </button>
+                <button type="button" data-modal="#purchasePaymentList" @click="paymentList(expense.id)"
+                        class="db-table-action">
+                  <i class="lab lab lab-line-menu text-cyan-500 bg-cyan-100"></i>
+                  <span class="db-tooltip">{{ $t('button.view_payments') }}</span>
+                </button>
                 <SmIconDeleteComponent @click="destroy(expense.id)"
                                        v-if="permissionChecker('products_delete')"/>
               </div>
@@ -126,6 +141,7 @@ import ExcelComponent from "../components/buttons/export/ExcelComponent";
 import activityEnum from "../../../enums/modules/activityEnum";
 import ExpenseCreateComponent from "./ExpenseCreateComponent.vue";
 import DatePickerComponent from "../components/DatePickerComponent.vue";
+import purchasePaymentStatusEnum from "../../../enums/modules/purchasePaymentStatusEnum";
 
 export default {
   name: "ExpenseListComponent",
@@ -151,6 +167,7 @@ export default {
         isActive: false
       },
       enums: {
+        purchasePaymentStatusEnum: purchasePaymentStatusEnum,
         statusEnum: statusEnum,
         askEnum: askEnum,
         activityEnum: activityEnum,
@@ -158,6 +175,11 @@ export default {
           [statusEnum.ACTIVE]: this.$t("label.active"),
           [statusEnum.INACTIVE]: this.$t("label.inactive")
         },
+        purchasePaymentStatusEnumArray: {
+          [purchasePaymentStatusEnum.PENDING]: this.$t("label.pending"),
+          [purchasePaymentStatusEnum.PARTIAL_PAID]: this.$t("label.partial_paid"),
+          [purchasePaymentStatusEnum.FULLY_PAID]: this.$t("label.fully_paid"),
+        }
       },
       printLoading: true,
       printObj: {
@@ -191,6 +213,9 @@ export default {
     items: function () {
       return this.$store.getters['expense/lists'];
     },
+    purchases: function () {
+      return this.$store.getters['purchase/lists'];
+    },
     pagination: function () {
       return this.$store.getters['expense/pagination'];
     },
@@ -205,6 +230,24 @@ export default {
   methods: {
     permissionChecker(e) {
       return appService.permissionChecker(e);
+    },
+    reset: function () {
+      this.$store.dispatch('expense/reset').then().catch();
+    },
+    addPayment: function (id) {
+      appService.modalShow('#purchasePayment');
+      this.loading.isActive = true;
+      this.$store.dispatch("expense/payment", id);
+      this.loading.isActive = false;
+    },
+    purchasePaymentStatusClass: function (status) {
+      return appService.purchasePaymentStatusClass(status);
+    },
+    paymentList: function (id) {
+      appService.modalShow('#purchasePaymentList');
+      this.loading.isActive = true;
+      this.$store.dispatch("purchase/payment", id);
+      this.loading.isActive = false;
     },
     handleDate: function (e) {
       if (e) {

@@ -60,6 +60,14 @@
             return $this -> response(true, 'success', data : ['totalExpense' => number_format($total)]);
         }
 
+        public function pendingExpenses()
+        {
+            $total = Expense ::where('user_id', $this -> id())
+                             -> selectRaw('SUM(amount - paid) as total')
+                             -> value('total');
+            return $this -> response(true, 'success', data : ['pendingExpense' => number_format($total)]);
+        }
+
         public function totalOrders(Request $request
         ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
             try {
