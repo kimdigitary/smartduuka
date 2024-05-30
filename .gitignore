@@ -18,6 +18,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+notes.txt
 /public/js/app.js
 /public/css/app.css
 public/js/app.js

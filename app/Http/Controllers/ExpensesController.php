@@ -40,10 +40,12 @@
                     'amount'        => 'required',
                     'date'          => 'required',
                     'category'      => 'required',
-                    'note'          => 'required',
                     'paymentMethod' => 'required',
                     'referenceNo'   => 'required_if:paymentMethod,2|required_if:paymentMethod,3|required_if:paymentMethod,4',
                     'recurs'        => 'required_if:isRecurring,true',
+                    'repeatsOn'     => 'required_if:isRecurring,true',
+                    'paymentAmount' => 'sometimes|integer',
+                    'paidOn'        => 'sometimes|date',
                 ]
             );
             if ($validator -> fails()) {
@@ -58,8 +60,13 @@
                     'category'      => $request -> category,
                     'paymentMethod' => $request -> paymentMethod,
                     'referenceNo'   => $request -> referenceNo,
+                    'isRecurring'   => $request -> isRecurring ?? 0,
                     'recurs'        => $request -> recurs,
                     'user_id'       => $this -> id(),
+                    'repetitions'   => $request -> repetitions ?? 0,
+                    'repeats_on'    => $request -> repeatsOn ? date('Y-m-d H:i:s', strtotime($request -> repeatsOn)) : null,
+                    'paid'          => $request -> paymentAmount ?? 0,
+                    'paid_on'       => $request -> paidOn ? date('Y-m-d H:i:s', strtotime($request -> paidOn)) : null,
                 ]);
                 $this -> saveFiles($request, $expense, ['attachment' => 'attachment']);
                 if ($expense) {
@@ -72,7 +79,7 @@
             } catch (Exception $exception) {
                 info($exception -> getMessage());
                 DB ::rollBack();
-                return $this -> response(message :$exception -> getMessage());
+                return $this -> response(message : $exception -> getMessage());
             }
         }
 

@@ -12,7 +12,7 @@ export const expense = {
             temp_id: null,
             isEditing: false,
         },
-        simpleList:[]
+        simpleList: []
     },
     getters: {
         lists: function (state) {
@@ -68,6 +68,42 @@ export const expense = {
         edit: function (context, payload) {
             context.commit('temp', payload);
         },
+        payment: function (context, payload) {
+            context.commit("temp", payload);
+        },
+        addPayment: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let method = axios.post;
+                let url = `admin/purchase/payment/${this.state['expense'].temp.temp_id}`;
+                method(url, payload.form).then(res => {
+                    context.dispatch('lists', {vuex: true}).then().catch();
+                    context.commit('reset');
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            })
+        },
+        viewPayment: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get(`admin/purchase/payment/${this.state['purchase'].temp.temp_id}`).then((res) => {
+                    context.commit('viewPayment', res.data.data);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
+            })
+        },
+        paymentDestroy: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                axios.delete(`admin/purchase/payment/${payload.purchase_id}/${payload.id}`).then((res) => {
+                    context.dispatch("lists", payload.search).then().catch();
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            });
+        },
         destroy: function (context, payload) {
             return new Promise((resolve, reject) => {
                 axios.delete(`admin/expenses/${payload.id}`).then((res) => {
@@ -98,7 +134,7 @@ export const expense = {
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
-                axios.get(url, { responseType: 'blob' }).then((res) => {
+                axios.get(url, {responseType: 'blob'}).then((res) => {
                     resolve(res);
                 }).catch((err) => {
                     reject(err);
