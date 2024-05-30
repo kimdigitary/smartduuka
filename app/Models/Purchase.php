@@ -20,6 +20,7 @@ class Purchase extends Model implements HasMedia
         'tax',
         'discount',
         'payment_status',
+        'balance',
         'total',
         'note',
         'status',
@@ -27,17 +28,18 @@ class Purchase extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'supplier_id'   => 'integer',
-        'date'          => 'datetime',
-        'reference_no'  => 'string',
-        'subtotal'      => 'decimal:6',
-        'tax'           => 'decimal:6',
-        'discount'      => 'decimal:6',
+        'supplier_id' => 'integer',
+        'date' => 'datetime',
+        'reference_no' => 'string',
+        'subtotal' => 'decimal:6',
+        'tax' => 'decimal:6',
+        'discount' => 'decimal:6',
         'payment_status' => 'integer',
-        'total'         => 'decimal:6',
-        'note'          => 'string',
-        'status'        => 'integer',
-        'sku'           => 'string',
+        'balance' => 'decimal:6',
+        'total' => 'decimal:6',
+        'note' => 'string',
+        'status' => 'integer',
+        'sku' => 'string',
     ];
 
     public function stocks(): \Illuminate\Database\Eloquent\Relations\morphMany
@@ -65,4 +67,18 @@ class Purchase extends Model implements HasMedia
     {
         return $this->HasMany(PurchasePayment::class, 'purchase_id', 'id');
     }
+
+    public function getBalanceAttribute()
+    {
+        $totalPayments = $this->purchasePayment()->sum('amount');
+        return $this->total - $totalPayments;
+    }
+
+    public static function scopeWithTotalBalance($query)
+    {
+        return $query->get()->sum(function($purchase) {
+            return $purchase->balance;
+        });
+    }
+
 }

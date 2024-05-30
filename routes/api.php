@@ -116,6 +116,10 @@
             Route ::get('/deposit-sales', [DashboardController::class, 'depositSales']);
             Route ::get('/in-stock', [DashboardController::class, 'inStock']);
             Route ::get('/out-stock', [DashboardController::class, 'outStock']);
+            Route ::get('/stock-value', [DashboardController::class, 'stockValue']);
+            Route ::get('/vendor-balance', [DashboardController::class, 'vendorBalance']);
+            Route ::get('/net-profit', [DashboardController::class, 'netProfit']);
+            Route ::get('/gross-profit', [DashboardController::class, 'grossProfit']);
         });
 
         Route ::prefix('setting') -> name('setting.') -> group(function () {

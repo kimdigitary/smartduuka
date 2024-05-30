@@ -17,6 +17,9 @@ export const dashboard = {
         inStock: [],
         outStock: [],
         totalExpenses: [],
+        stockValue: [],
+        grossProfit: [],
+        netProfit: [],
     },
 
     getters: {
@@ -58,7 +61,19 @@ export const dashboard = {
         },
         outStock: function (state) {
             return state.outStock;
-        }
+        },
+        stockValue: function (state) {
+            return state.stockValue;
+        },
+        vendorBalance: function (state) {
+            return state.vendorBalance;
+        },
+        grossProfit: function (state) {
+            return state.grossProfit;
+        },
+        netProfit: function (state) {
+            return state.netProfit;
+        },
     },
 
     actions: {
@@ -259,7 +274,67 @@ export const dashboard = {
                         reject(err);
                     });
             });
-        }
+        },
+        stockValue: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/stock-value";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                    context.commit("stockValue", res.data.data);
+                    resolve(res);
+                })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        vendorBalance: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/vendor-balance";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                    context.commit("vendorBalance", res.data.data);
+                    resolve(res);
+                })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        netProfit: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/net-profit";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                    context.commit("netProfit", res.data.data);
+                    resolve(res);
+                })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
+        grossProfit: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/gross-profit";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url).then((res) => {
+                    context.commit("grossProfit", res.data.data);
+                    resolve(res);
+                })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
     },
 
     mutations: {
@@ -304,6 +379,18 @@ export const dashboard = {
         },
         outStock: function (state, payload) {
             state.outStock = payload;
+        },
+        stockValue: function (state, payload) {
+            state.stockValue = payload;
+        },
+        vendorBalance: function (state, payload) {
+            state.vendorBalance = payload;
+        },
+        netProfit: function (state, payload) {
+            state.netProfit = payload;
+        },
+        grossProfit: function (state, payload) {
+            state.grossProfit = payload;
         },
     },
 };
