@@ -7,9 +7,8 @@
 
     trait FilesTrait
     {
-        public function saveFiles(Request $request, Model $model, $files) : bool
+        public function saveFiles(Request $request, Model $model, $files) : string | null
         {
-            $files_saved_successfully = false;
             foreach ($files as $file => $type) {
                 try {
                     if ($request -> hasFile("$file")) {
@@ -17,16 +16,18 @@
                         $relativePath = 'public/attachments';
                         $basePath     = '/' . $relativePath;
                         $request -> file($file) -> storeAs($basePath, $mediaPath);
-                        $model ->{$type} = $relativePath . '/' . $mediaPath;
+                        $path            = $relativePath . '/' . $mediaPath;
+                        $model ->{$type} = $path;
                         $model -> save();
-                        $files_saved_successfully = true;
+                        return $path;
                     } else {
                         info('no file');
                     }
                 } catch (\Exception $e) {
-                    $files_saved_successfully = false;
+                    info($e->getMessage());
+                    return null;
                 }
             }
-            return $files_saved_successfully;
+            return null;
         }
     }

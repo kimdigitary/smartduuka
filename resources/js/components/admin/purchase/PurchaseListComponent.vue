@@ -253,7 +253,7 @@ export default {
         addPayment: function (id) {
             appService.modalShow('#purchasePayment');
             this.loading.isActive = true;
-            this.$store.dispatch("expense/payment", id);
+            this.$store.dispatch("purchase/payment", id);
             this.loading.isActive = false;
         },
         paymentList: function (id) {
