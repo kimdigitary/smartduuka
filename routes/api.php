@@ -104,6 +104,7 @@
         Route ::prefix('dashboard') -> name('dashboard.') -> group(function () {
             Route ::get('/total-sales', [DashboardController::class, 'totalSales']);
             Route ::get('/total-expenses', [DashboardController::class, 'totalExpenses']);
+            Route ::get('/pending-expenses', [DashboardController::class, 'pendingExpenses']);
             Route ::get('/total-orders', [DashboardController::class, 'totalOrders']);
             Route ::get('/total-customers', [DashboardController::class, 'totalCustomers']);
             Route ::get('/total-products', [DashboardController::class, 'totalProducts']);

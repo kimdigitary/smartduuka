@@ -127,10 +127,8 @@
                                     <i class="lab lab lab-line-menu text-cyan-500 bg-cyan-100"></i>
                                     <span class="db-tooltip">{{ $t('button.view_payments') }}</span>
                                 </button>
-
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
@@ -255,7 +253,7 @@ export default {
         addPayment: function (id) {
             appService.modalShow('#purchasePayment');
             this.loading.isActive = true;
-            this.$store.dispatch("purchase/payment", id);
+            this.$store.dispatch("expense/payment", id);
             this.loading.isActive = false;
         },
         paymentList: function (id) {

@@ -109,6 +109,22 @@ export const dashboard = {
                     });
             });
         },
+        pendingExpenses: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let url = "admin/dashboard/pending-expenses";
+                if (payload) {
+                    url = url + appService.requestHandler(payload);
+                }
+                axios.get(url)
+                    .then((res) => {
+                        context.commit("pendingExpenses", res.data.data);
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        },
         totalOrders: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = "admin/dashboard/total-orders";
@@ -326,6 +342,9 @@ export const dashboard = {
             state.totalSales = payload;
         },
         totalExpenses: function (state, payload) {
+            state.totalExpenses = payload;
+        },
+        pendingExpenses: function (state, payload) {
             state.totalExpenses = payload;
         },
         totalOrders: function (state, payload) {
