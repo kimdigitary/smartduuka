@@ -48,6 +48,18 @@
                     'paidOn'        => 'sometimes|date',
                 ]
             );
+            $validator->setAttributeNames([
+                'name'          => 'name',
+                'amount'        => 'amount',
+                'date'          => 'date',
+                'category'      => 'category',
+                'paymentMethod' => 'paymentMethod',
+                'referenceNo'   => 'referenceNo',
+                'recurs'        => 'recurs',
+                'repeatsOn'     => 'repeatsOn',
+                'paymentAmount' => 'paymentAmount',
+                'paidOn'        => 'paidOn',
+            ]);
             if ($validator -> fails()) {
                 return $this -> response(message : $validator -> errors() -> first(), data : [$validator -> errors() -> keys()[ 0 ] => $validator -> errors() -> first()]);
             }

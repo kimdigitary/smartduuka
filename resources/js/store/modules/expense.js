@@ -74,7 +74,7 @@ export const expense = {
         addPayment: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let method = axios.post;
-                let url = `admin/purchase/payment/${this.state['expense'].temp.temp_id}`;
+                let url = `admin/expense-payments`;
                 method(url, payload.form).then(res => {
                     context.dispatch('lists', {vuex: true}).then().catch();
                     context.commit('reset');
