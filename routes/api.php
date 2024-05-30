@@ -44,6 +44,7 @@
     use App\Http\Controllers\Auth\RefreshTokenController;
     use App\Http\Controllers\CreditDepositPurchaseController;
     use App\Http\Controllers\ExpenseCategoryController;
+    use App\Http\Controllers\ExpensePaymentController;
     use App\Http\Controllers\ExpensesController;
     use App\Http\Controllers\Frontend\CountryCodeController as FrontendCountryCodeController;
     use App\Http\Controllers\Frontend\LanguageController as FrontendLanguageController;
@@ -250,6 +251,7 @@
 
         Route ::resource('expenses', ExpensesController::class);
         Route ::resource('expense-categories', ExpenseCategoryController::class);
+        Route ::resource('expense-payments', ExpensePaymentController::class);
         Route ::get('expense-categories-export', [ExpenseCategoryController::class, 'export']);
 
         Route ::prefix('product') -> name('product.') -> group(function () {

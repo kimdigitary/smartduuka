@@ -11,7 +11,7 @@
           <button class="modal-close fa-solid fa-xmark text-xl text-slate-400 hover:text-red-500"
                   @click="reset"></button>
         </div>
-        <PurchasePaymentCreateComponent v-if="show"/>
+        <ExpensePaymentCreateComponent v-if="show"/>
       </div>
     </div>
     <div id="purchasePaymentList" class="modal">
@@ -34,10 +34,12 @@ import PurchasePaymentCreateComponent from "../purchase/PurchasePaymentCreateCom
 import ExpenseCreateComponent from "./ExpenseCreateComponent.vue";
 import ExpenseListComponent from "./ExpensetListComponent.vue";
 import appService from "../../../services/appService";
+import ExpensePaymentCreateComponent from "./ExpensePaymentCreateComponent.vue";
 
 export default {
   name: "ExpenseComponent",
   components: {
+    ExpensePaymentCreateComponent,
     ExpenseListComponent,
     ExpenseCreateComponent,
     PurchasePaymentCreateComponent, PurchasePaymentListComponent,
