@@ -15,12 +15,10 @@
     class ExpensePaymentController extends Controller
     {
         use  ApiResponse, FilesTrait, AuthUser;
-
         public function index()
         {
             //
         }
-
         public function create()
         {
 
