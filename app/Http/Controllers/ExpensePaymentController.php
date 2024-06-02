@@ -64,12 +64,6 @@
             //
         }
 
-
-        public function edit(ExpensePayment $expensePayment)
-        {
-            //
-        }
-
         public function update(Request $request, ExpensePayment $expensePayment)
         {
             //
