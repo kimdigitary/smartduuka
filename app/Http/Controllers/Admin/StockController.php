@@ -20,10 +20,10 @@ class StockController extends AdminController
         $this->middleware(['permission:stock'])->only('index', 'export');
     }
 
-    public function index(PaginateRequest $request): \Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function index(PaginateRequest $request)//: \Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
-            return  StockResource::collection($this->stockService->list($request));
+            return null; //StockResource::collection($this->stockService->list($request));
         } catch (Exception $exception) {
             return response(['status' => false, 'message' => $exception->getMessage()], 422);
         }
