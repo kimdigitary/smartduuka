@@ -169,6 +169,7 @@ import activityEnum from "../../../enums/modules/activityEnum";
 import askEnum from "../../../enums/modules/askEnum";
 import statusEnum from "../../../enums/modules/statusEnum";
 import isRecurringEnum from "../../../enums/modules/isRecuringEnum";
+import {paymentMethods, recurringOptions} from "../../../utils/data";
 
 export default {
   name: "ExpenseCreateComponent",
@@ -230,29 +231,8 @@ export default {
   },
   mounted() {
     this.loading.isActive = true;
-    this.recurringOptions = [
-      {id: 1, name: 'Daily'},
-      {id: 2, name: 'Weekly'},
-      {id: 3, name: 'Monthly'},
-      {id: 4, name: 'Yearly'},
-    ]
-    this.paymentMethods = [
-      {id: 1, name: 'Cash'},
-      {id: 2, name: 'Mobile Money'},
-      {id: 3, name: 'Check'},
-      {id: 4, name: 'Bank Transfer'},
-    ]
-
-    // this.loading.isActive = true;
-    // this.$store.dispatch('expense/lists', {
-    //   order_column: 'id',
-    //   order_type: 'asc'
-    // }).then((res) => {
-    //   this.items = res.data.data;
-    //   this.loading.isActive = false;
-    // }).catch((error) => {
-    //   this.loading.isActive = false;
-    // });
+      this.recurringOptions = recurringOptions
+    this.paymentMethods = paymentMethods
 
     this.loading.isActive = true;
     this.$store.dispatch('expenseCategory/lists', {

@@ -117,17 +117,17 @@
                         <hr class="dashed-hr">
                         <ul class="flex flex-col gap-1.5 mb-4">
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Total Orders</span><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.total_orders : 'N/A' }}</span></li>
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Total Orders</span><span
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.total_orders : 'N/A' }}</span></li>
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Credit Sales</span><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.total_credit_sales : 'N/A' }}</span></li>
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Credit Sales</span><span
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.total_credit_sales : 'N/A' }}</span></li>
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Credit Paid</span><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.credit_paid : 'N/A' }}</span></li>
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Credit Paid</span><span
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.credit_paid : 'N/A' }}</span></li>
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">Credit Balance</span><span
-                                    class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.credit_balance : 'N/A' }}</span>
+                                class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">Credit Balance</span><span
+                                class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">{{ credit_sales ? credit_sales.credit_balance : 'N/A' }}</span>
                             </li>
                         </ul>
                     </div>
@@ -143,26 +143,26 @@
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Total
                                     Orders</span>
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ deposit_sales ?
-        deposit_sales.total_orders : 'N/A' }}</span>
+                                    deposit_sales.total_orders : 'N/A' }}</span>
                             </li>
                             <li class="flex items-center justify-between">
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Deposit
                                     Sales</span>
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ deposit_sales ?
-        deposit_sales.total_deposit_sales : 'N/A' }}</span>
+                                    deposit_sales.total_deposit_sales : 'N/A' }}</span>
                             </li>
                             <li class="flex items-center justify-between">
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Deposit
                                     Paid</span>
                                 <span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ deposit_sales ?
-        deposit_sales.deposit_paid : 'N/A' }}</span>
+                                    deposit_sales.deposit_paid : 'N/A' }}</span>
                             </li>
                             <li class="flex items-center justify-between">
                                 <span
                                     class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">Deposit
                                     Balance</span>
                                 <span class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">{{
-                                    deposit_sales ? deposit_sales.deposit_balance : 'N/A' }}</span>
+                                        deposit_sales ? deposit_sales.deposit_balance : 'N/A' }}</span>
                             </li>
                         </ul>
                     </div>
@@ -176,17 +176,17 @@
                         <ul class="flex flex-col gap-1.5 mb-4">
 
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">In Stock</span><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ in_stock
-                                    }}</span></li>
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">In Stock</span><span
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{ in_stock
+                                }}</span></li>
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Out of
+                                class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">Out of
                                     Stock</span><span class="text-sm font-medium capitalize leading-6 text-[#2E2F38]">{{
                                     out_stock }}</span></li>
                             <li class="flex items-center justify-between"><span
-                                    class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">Total
+                                class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">Total
                                     Products</span><span
-                                    class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">{{
+                                class="text-sm font-medium font-client capitalize leading-6 text-[#2E2F38]">{{
                                     total_products }}</span>
                             </li>
                             <br>
