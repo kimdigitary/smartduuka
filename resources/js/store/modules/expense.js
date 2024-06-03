@@ -66,7 +66,15 @@ export const expense = {
             });
         },
         edit: function (context, payload) {
-            context.commit('temp', payload);
+            return new Promise((resolve, reject) => {
+                axios.get(`admin/expenses/${payload}`).then((res) => {
+                    context.commit('edit', res.data.data);
+                    context.commit('temp', payload);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
+            })
         },
         payment: function (context, payload) {
             context.commit("temp", payload);
@@ -156,6 +164,9 @@ export const expense = {
         reset: function (state) {
             state.temp.temp_id = null;
             state.temp.isEditing = false;
+        },
+        edit: function (state, payload) {
+            state.edit = payload;
         },
     },
 }

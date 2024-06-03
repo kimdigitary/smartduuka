@@ -90,8 +90,10 @@
               <div class="flex justify-start items-center sm:items-start sm:justify-start gap-1.5">
                 <SmIconViewComponent :link="'admin.expenses.show'" :id="expense.id"
                                      v-if="permissionChecker('products_show')"/>
-                <SmIconSidebarModalEditComponent @click="edit(expense)"
-                                                 v-if="permissionChecker('products_edit')"/>
+                  <SmIconEditComponent @click="edit(expense)" :link="'admin.expenses.edit'" :id="expense.id"
+                                       v-if="permissionChecker('purchase_edit')" />
+                  <SmIconDeleteComponent @click="destroy(expense.id)"
+                                         v-if="permissionChecker('products_delete')"/>
                 <button type="button" data-modal="#purchasePayment" @click="addPayment(expense.id)"
                         class="db-table-action">
                   <i class="lab lab-line-card text-blue-500 bg-blue-100"></i>
@@ -102,8 +104,7 @@
                   <i class="lab lab lab-line-menu text-cyan-500 bg-cyan-100"></i>
                   <span class="db-tooltip">{{ $t('button.view_payments') }}</span>
                 </button>
-                <SmIconDeleteComponent @click="destroy(expense.id)"
-                                       v-if="permissionChecker('products_delete')"/>
+
               </div>
             </td>
           </tr>
@@ -142,10 +143,12 @@ import activityEnum from "../../../enums/modules/activityEnum";
 import ExpenseCreateComponent from "./ExpenseCreateComponent.vue";
 import DatePickerComponent from "../components/DatePickerComponent.vue";
 import purchasePaymentStatusEnum from "../../../enums/modules/purchasePaymentStatusEnum";
+import SmIconEditComponent from "../components/buttons/SmIconEditComponent.vue";
 
 export default {
   name: "ExpenseListComponent",
   components: {
+      SmIconEditComponent,
     DatePickerComponent,
     TableLimitComponent,
     PaginationSMBox,

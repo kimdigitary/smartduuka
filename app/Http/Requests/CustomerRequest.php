@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +13,7 @@ class CustomerRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize() : bool
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,12 +23,12 @@ class CustomerRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name'                  => ['required', 'string', 'max:190'],
-            'email'                 => [
-                'required',
+            'name'         => ['required', 'string', 'max:190'],
+            'email'        => [
+                'nullable',
                 'email',
                 'max:190',
                 Rule::unique("users", "email")->ignore($this->route('customer.id'))
@@ -38,22 +39,23 @@ class CustomerRequest extends FormRequest
             //     'min:6',
             //     'confirmed'
             // ],
-            'username'              => [
+            'username'     => [
                 'nullable',
                 'max:190',
                 Rule::unique("users", "username")->ignore($this->route('customer.id'))
             ],
-            'device_token'          => ['nullable', 'string'],
-            'web_token'             => ['nullable', 'string'],
+            'device_token' => ['nullable', 'string'],
+            'web_token'    => ['nullable', 'string'],
             // 'password_confirmation' => [$this->route('customer.id') ? 'nullable' : 'required', 'string', 'min:6'],
-            'phone'                 => [
-                'nullable',
+            'phone'        => [
+                'required',
                 'string',
                 'max:20',
+                new Phone(),
                 Rule::unique("users", "phone")->ignore($this->route('customer.id'))
             ],
-            'status'                => ['required', 'numeric', 'max:24'],
-            'country_code'          => ['required', 'string', 'max:20'],
+            'status'       => ['required', 'numeric', 'max:24'],
+            'country_code' => ['required', 'string', 'max:20'],
         ];
     }
 }

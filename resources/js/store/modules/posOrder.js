@@ -1,6 +1,6 @@
 import axios from 'axios'
 import appService from "../../services/appService";
-import { useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
 
 
 export const posOrder = {
@@ -25,7 +25,7 @@ export const posOrder = {
         pagination: function (state) {
             return state.pagination
         },
-        page: function(state) {
+        page: function (state) {
             return state.page;
         },
         show: function (state) {
@@ -63,7 +63,7 @@ export const posOrder = {
                     url = url + appService.requestHandler(payload);
                 }
                 axios.get(url).then((res) => {
-                    if(typeof payload.vuex === "undefined" || payload.vuex === true) {
+                    if (typeof payload.vuex === "undefined" || payload.vuex === true) {
                         context.commit('lists', res.data.data);
                         context.commit('page', res.data.meta);
                         context.commit('pagination', res.data);
@@ -108,7 +108,7 @@ export const posOrder = {
         },
         changeStatus: function (context, payload) {
             return new Promise((resolve, reject) => {
-                axios.post(`admin/pos-order/change-status/${payload.id}`,payload).then((res) => {
+                axios.post(`admin/pos-order/change-status/${payload.id}`, payload).then((res) => {
                     context.commit('show', res.data.data);
                     resolve(res);
                 }).catch((err) => {
@@ -118,7 +118,7 @@ export const posOrder = {
         },
         changePaymentStatus: function (context, payload) {
             return new Promise((resolve, reject) => {
-                axios.post(`admin/pos-order/change-payment-status/${payload.id}`,payload).then((res) => {
+                axios.post(`admin/pos-order/change-payment-status/${payload.id}`, payload).then((res) => {
                     context.commit('show', res.data.data);
                     resolve(res);
                 }).catch((err) => {
@@ -146,6 +146,9 @@ export const posOrder = {
             return new Promise((resolve, reject) => {
                 let method = axios.post;
                 let url = "/admin/pos/customer";
+                // payload.form.country_code = '256'
+                console.log(payload.form)
+                // payload.form.phone = `256${payload.phone}`
                 method(url, payload.form)
                     .then((res) => {
                         resolve(res);
@@ -164,7 +167,7 @@ export const posOrder = {
             state.pagination = payload;
         },
         page: function (state, payload) {
-            if(typeof payload !== "undefined" && payload !== null) {
+            if (typeof payload !== "undefined" && payload !== null) {
                 state.page = {
                     from: payload.from,
                     to: payload.to,
@@ -181,7 +184,7 @@ export const posOrder = {
         orderUser: function (state, payload) {
             state.orderUser = payload;
         },
-        reset: function(state) {
+        reset: function (state) {
             state.temp.temp_id = null;
             state.temp.isEditing = false;
         }
