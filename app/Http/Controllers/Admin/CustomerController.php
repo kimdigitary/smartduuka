@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Exception;
-use App\Models\User;
-use App\Services\OrderService;
 use App\Exports\CustomerExport;
-use App\Services\CustomerService;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Resources\OrderResource;
+use App\Http\Requests\ChangeImageRequest;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\PaginateRequest;
-use App\Http\Resources\CustomerResource;
-use App\Http\Requests\ChangeImageRequest;
 use App\Http\Requests\UserChangePasswordRequest;
+use App\Http\Resources\CustomerResource;
+use App\Http\Resources\OrderResource;
+use App\Models\User;
+use App\Services\CustomerService;
+use App\Services\OrderService;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends AdminController
 {
@@ -24,8 +27,8 @@ class CustomerController extends AdminController
     {
         parent::__construct();
         $this->customerService = $customerService;
-        $this->orderService    = $orderService;
-        
+        $this->orderService = $orderService;
+
         $this->middleware(['permission:customers'])->only(
             'index',
             'export',
@@ -41,7 +44,8 @@ class CustomerController extends AdminController
     }
 
     public function index(PaginateRequest $request
-    ) : \Illuminate\Http\Response | \Illuminate\Http\Resources\Json\AnonymousResourceCollection | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+    ): Response|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|Application|ResponseFactory
+    {
         try {
             return CustomerResource::collection($this->customerService->list($request));
         } catch (Exception $exception) {
@@ -50,8 +54,13 @@ class CustomerController extends AdminController
     }
 
     public function store(CustomerRequest $request
-    ) : \Illuminate\Http\Response | CustomerResource | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+    ): Response|CustomerResource|Application|ResponseFactory
+    {
         try {
+//            $country_code = '256';
+//            $phone = $request->phone;
+//            $request->phone = "$country_code$phone";
+//            $request->country_code = $country_code;
             return new CustomerResource($this->customerService->store($request));
         } catch (Exception $exception) {
             return response(['status' => false, 'message' => $exception->getMessage()], 422);
@@ -60,8 +69,9 @@ class CustomerController extends AdminController
 
     public function update(
         CustomerRequest $request,
-        User $customer
-    ) : \Illuminate\Http\Response | CustomerResource | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+        User            $customer
+    ): Response|CustomerResource|Application|ResponseFactory
+    {
         try {
             return new CustomerResource($this->customerService->update($request, $customer));
         } catch (Exception $exception) {
@@ -70,7 +80,8 @@ class CustomerController extends AdminController
     }
 
     public function destroy(User $customer
-    ) : \Illuminate\Http\Response | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+    ): Response|Application|ResponseFactory
+    {
         try {
             $this->customerService->destroy($customer);
             return response('', 202);
@@ -80,7 +91,8 @@ class CustomerController extends AdminController
     }
 
     public function show(User $customer
-    ) : \Illuminate\Http\Response | CustomerResource | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+    ): Response|CustomerResource|Application|ResponseFactory
+    {
         try {
             return new CustomerResource($this->customerService->show($customer));
         } catch (Exception $exception) {
@@ -90,7 +102,8 @@ class CustomerController extends AdminController
 
 
     public function export(PaginateRequest $request
-    ) : \Illuminate\Http\Response | \Symfony\Component\HttpFoundation\BinaryFileResponse | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+    ): Response|\Symfony\Component\HttpFoundation\BinaryFileResponse|Application|ResponseFactory
+    {
         try {
             return Excel::download(new CustomerExport($this->customerService, $request), 'Customer.xlsx');
         } catch (Exception $exception) {
@@ -100,8 +113,9 @@ class CustomerController extends AdminController
 
     public function changePassword(
         UserChangePasswordRequest $request,
-        User $customer
-    ) : \Illuminate\Http\Response | CustomerResource | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+        User                      $customer
+    ): Response|CustomerResource|Application|ResponseFactory
+    {
         try {
             return new CustomerResource($this->customerService->changePassword($request, $customer));
         } catch (Exception $exception) {
@@ -111,8 +125,9 @@ class CustomerController extends AdminController
 
     public function changeImage(
         ChangeImageRequest $request,
-        User $customer
-    ) : \Illuminate\Http\Response | CustomerResource | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+        User               $customer
+    ): Response|CustomerResource|Application|ResponseFactory
+    {
         try {
             return new CustomerResource($this->customerService->changeImage($request, $customer));
         } catch (Exception $exception) {
@@ -122,8 +137,9 @@ class CustomerController extends AdminController
 
     public function myOrder(
         PaginateRequest $request,
-        User $customer
-    ) : \Illuminate\Http\Response | \Illuminate\Http\Resources\Json\AnonymousResourceCollection | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+        User            $customer
+    ): Response|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|Application|ResponseFactory
+    {
         try {
             return OrderResource::collection($this->orderService->userOrder($request, $customer));
         } catch (Exception $exception) {
