@@ -111,7 +111,7 @@
         <div class="row mt-8">
             <div class="col-12 sm:col-6 xl:col-4">
 
-                <div class="bg-admin-light p-4 rounded-lg flex gap-4">
+                <div class="bg-admin-light p-4 rounded-lg gap-4">
                     <div>
                         <h3 class="font-medium tracking-wide uppercase text-secondary">Credit Orders</h3>
                         <hr class="dashed-hr">
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="col-12 sm:col-6 xl:col-4">
-                <div class="bg-admin-light p-4 rounded-lg flex gap-4">
+                <div class="bg-admin-light p-4 rounded-lg gap-4">
                     <div>
                         <h3 class="font-medium tracking-wide uppercase text-secondary">Deposit Orders</h3>
                         <hr class="dashed-hr">
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="col-12 sm:col-6 xl:col-4">
-                <div class="bg-admin-light p-4 rounded-lg flex gap-4">
+                <div class="bg-admin-light p-4 rounded-lg gap-4">
                     <div>
                         <h3 class="font-medium tracking-wide uppercase text-secondary">Stock</h3>
                         <hr class="dashed-hr">

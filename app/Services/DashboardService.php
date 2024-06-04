@@ -283,13 +283,24 @@ class DashboardService
 
             $total_orders = Order::where('order_type', OrderType::CREDIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
             $total_credit_sales = Order::where('order_type', OrderType::CREDIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
-            $credit_paid = Order::where('payment_status', PaymentStatus::PAID)->where('order_type', OrderType::CREDIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
-            $credit_balance = $total_credit_sales - $credit_paid;
+
+            $credit_orders_paid = Order::where('order_type', OrderType::CREDIT)
+                ->withSum('creditDepositPurchases', 'paid')
+                ->get();
+
+            // Iterate over the orders to calculate the total sum of 'paid' from CreditDepositPurchase
+            $totalPaidForCreditOrders = 0;
+
+            foreach ($credit_orders_paid as $order) {
+                $totalPaidForCreditOrders += $order->credit_deposit_purchases_sum_paid;
+            }
+
+            $credit_balance = $total_credit_sales - $totalPaidForCreditOrders;
 
             return [
-                'total_orders' => AppLibrary ::currencyAmountFormat($total_orders),
+                'total_orders' => $total_orders,
                 'total_credit_sales' => AppLibrary ::currencyAmountFormat($total_credit_sales),
-                'credit_paid' => AppLibrary ::currencyAmountFormat($credit_paid),
+                'credit_paid' => AppLibrary ::currencyAmountFormat($totalPaidForCreditOrders),
                 'credit_balance' => AppLibrary ::currencyAmountFormat($credit_balance),
             ];
 
@@ -311,13 +322,24 @@ class DashboardService
             }
             $total_orders = Order::where('order_type', OrderType::DEPOSIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->count();
             $total_credit_sales = Order::where('order_type', OrderType::DEPOSIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
-            $credit_paid = Order::where('payment_status', PaymentStatus::PAID)->where('order_type', OrderType::DEPOSIT)->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->sum('total');
-            $credit_balance = $total_credit_sales - $credit_paid;
+
+            $deposit_orders_paid = Order::where('order_type', OrderType::DEPOSIT)
+                ->withSum('creditDepositPurchases', 'paid')
+                ->get();
+
+            // Iterate over the orders to calculate the total sum of 'paid' from CreditDepositPurchase
+            $totalPaidForDepositOrders = 0;
+
+            foreach ($deposit_orders_paid as $order) {
+                $totalPaidForDepositOrders += $order->credit_deposit_purchases_sum_paid;
+            }
+
+            $credit_balance = $total_credit_sales - $totalPaidForDepositOrders;
 
             return [
-                'total_orders' => AppLibrary ::currencyAmountFormat($total_orders),
+                'total_orders' => $total_orders,
                 'total_deposit_sales' => AppLibrary ::currencyAmountFormat($total_credit_sales),
-                'deposit_paid' => AppLibrary ::currencyAmountFormat($credit_paid),
+                'deposit_paid' => AppLibrary ::currencyAmountFormat($totalPaidForDepositOrders),
                 'deposit_balance' => AppLibrary ::currencyAmountFormat($credit_balance),
             ];
 
@@ -330,7 +352,7 @@ class DashboardService
     public function inStock(Request $request)
     {
         try {
-            return Stock::where('status', Status::ACTIVE)->count();
+            return Stock::where('quantity', '>=', 0)->count();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);
@@ -340,7 +362,7 @@ class DashboardService
     public function outStock(Request $request)
     {
         try {
-            return Stock::where('status', Status::INACTIVE)->count();
+            return Stock::where('quantity', '<=', 0)->count();
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             throw new Exception($exception->getMessage(), 422);

@@ -29,3 +29,4 @@ storage/media-library
 */storage/media-library
 resources/js/config/env.js
 .env
+.env

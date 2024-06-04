@@ -52,6 +52,15 @@ class PurchaseController extends AdminController
         }
     }
 
+    public function storeStock(PurchaseRequest $request): \Illuminate\Foundation\Application|\Illuminate\Http\Response|PurchaseResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    {
+        try {
+            return new PurchaseResource($this->purchaseService->storeStock($request));
+        } catch (Exception $exception) {
+            return response(['status' => false, 'message' => $exception->getMessage()], 422);
+        }
+    }
+
     public function show(Purchase $purchase): \Illuminate\Foundation\Application|\Illuminate\Http\Response|PurchaseDetailsResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {
