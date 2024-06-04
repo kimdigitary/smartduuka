@@ -23,6 +23,7 @@ use App\Http\Requests\PurchasePaymentRequest;
 class PurchaseService
 {
     public object $purchase;
+    public object $stock;
     protected array $purchaseFilter = [
         'supplier_id',
         'date',
@@ -89,7 +90,7 @@ class PurchaseService
                     'subtotal'       => $request->subtotal,
                     'tax'            => $request->tax,
                     'discount'       => $request->discount,
-                    'balance'        => $request->amount,
+                    'balance'        => $request->amount ? $request->amount : $request->total,
                     'total'          => $request->total,
                     'note'           => $request->note ? $request->note : "",
                     'status'         => $request->status,
@@ -329,6 +330,59 @@ class PurchaseService
     {
         try {
             return PurchasePayment::where('purchase_id', $purchase->id)->get();
+        } catch (Exception $exception) {
+            Log::info($exception->getMessage());
+            DB::rollBack();
+            throw new Exception($exception->getMessage(), 422);
+        }
+    }
+
+    public function storeStock(PurchaseRequest $request): object
+    {
+        try {
+            DB::transaction(function () use ($request) {
+                if ($request->products) {
+                    $products = json_decode($request->products, true);
+                    $taxes    = Tax::all()->keyBy('id');
+                    foreach ($products as $product) {
+                        $this->stock = Stock::create([
+                            'model_type'      => Purchase::class,
+                            'model_id'        => 1,
+                            'item_type'       => $product['is_variation'] ? ProductVariation::class : Product::class,
+                            'item_id'         => $product['item_id'],
+                            'variation_names' => $product['variation_names'],
+                            'product_id'      => $product['product_id'],
+                            'price'           => $product['price'],
+                            'quantity'        => $product['quantity'],
+                            'discount'        => $product['total_discount'],
+                            'tax'             => $product['total_tax'],
+                            'subtotal'        => $product['subtotal'],
+                            'total'           => $product['total'],
+                            'sku'             => $product['sku'],
+                            'status'          => $request->status == PurchaseStatus::RECEIVED ? Status::ACTIVE : Status::INACTIVE
+                        ]);
+
+                        if (isset($product['tax_id']) && count($product['tax_id']) > 0) {
+                            foreach ($product['tax_id'] as $tax_id) {
+                                if (isset($taxes[$tax_id])) {
+                                    $tax = $taxes[$tax_id];
+                                    StockTax::create([
+                                        'stock_id'   => $this->stock->id,
+                                        'product_id' => $product['product_id'],
+                                        'tax_id'     => $tax->id,
+                                        'name'       => $tax->name,
+                                        'code'       => $tax->code,
+                                        'tax_rate'   => $tax->tax_rate,
+                                        'tax_amount' => ($tax->tax_rate * ($product['price'] * $product['quantity'])) / 100,
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+                }
+
+            });
+            return $this->stock;
         } catch (Exception $exception) {
             Log::info($exception->getMessage());
             DB::rollBack();
