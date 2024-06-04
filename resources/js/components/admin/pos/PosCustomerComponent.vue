@@ -150,7 +150,7 @@ export default {
                     phone: "",
                     password: "",
                     password_confirmation: "",
-                    country_code: "",
+                    country_code: "256",
                     status: statusEnum.ACTIVE,
                 }
             },
@@ -201,6 +201,7 @@ export default {
         save: function () {
             try {
                 this.loading.isActive = true;
+                // this.props.form.phone = `${this.props.form.country_code}${this.props.form.phone}`
                 this.$store
                     .dispatch("posOrder/saveCustomer", this.props)
                     .then((res) => {
