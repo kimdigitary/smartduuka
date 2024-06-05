@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Resources\ProductCategoryDepthTreeResource;
 use Exception;
 use App\Services\ProductCategoryService;
