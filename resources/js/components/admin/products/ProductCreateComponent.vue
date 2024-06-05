@@ -26,7 +26,6 @@
                         </div>
                         <small class="db-field-alert" v-if="errors.sku">{{ errors.sku[0] }}</small>
                     </div>
-
                     <div class="form-col-12 sm:form-col-6">
                         <label for="product_category_id" class="db-field-title required">
                             {{ $t("label.category") }}

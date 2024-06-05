@@ -5,7 +5,7 @@
 /public/storage
 /storage/*.key
 /vendor
-#.env
+.env
 resources/js/config/env.js
 .env.backup
 .env.production
@@ -27,5 +27,3 @@ public/css/app.css
 /storage/media-library
 storage/media-library
 */storage/media-library
-resources/js/config/env.js
-.env
