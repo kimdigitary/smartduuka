@@ -8,6 +8,7 @@ export const expenseCategory = {
         lists: [],
         page: {},
         pagination: [],
+        depthTrees: [],
         show: {},
         temp: {
             temp_id: null,
@@ -32,8 +33,21 @@ export const expenseCategory = {
         temp: function (state) {
             return state.temp;
         },
+        depthTrees: function (state) {
+            return state.depthTrees;
+        },
     },
     actions: {
+        depthTrees: function (context) {
+            return new Promise((resolve, reject) => {
+                axios.get('admin/expense-category/depth-tree').then((res) => {
+                    context.commit('depthTrees', res.data.data);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            });
+        },
         lists: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let url = 'admin/expense-categories';
@@ -61,6 +75,7 @@ export const expenseCategory = {
                 payload.form.user_id = this.state['auth'].authInfo.id;
                 method(url, payload.form).then(res => {
                     context.dispatch('lists', payload.search).then().catch();
+                    context.dispatch('depthTrees', payload.search).then().catch();
                     context.commit('reset');
                     resolve(res);
                 }).catch((err) => {
@@ -109,6 +124,9 @@ export const expenseCategory = {
         },
     },
     mutations: {
+        depthTrees: function (state, payload) {
+            state.depthTrees = payload;
+        },
         lists: function (state, payload) {
             state.lists = payload
         },

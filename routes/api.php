@@ -255,6 +255,8 @@
 
         Route ::resource('expenses', ExpensesController::class);
         Route ::resource('expense-categories', ExpenseCategoryController::class);
+        Route ::get('expense-category/depth-tree', [ExpenseCategoryController::class, 'depthTree']);
+//        Route ::get('depth-tree', [ExpenseCategoryController::class, 'depthTree']);
         Route ::resource('expense-payments', ExpensePaymentController::class);
         Route ::get('expense-categories-export', [ExpenseCategoryController::class, 'export']);
 
