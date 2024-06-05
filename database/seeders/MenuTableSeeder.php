@@ -102,7 +102,7 @@ class MenuTableSeeder extends Seeder
 
                     ],
                     [
-                        'name'       => 'Product Stocking',
+                        'name'       => 'Stock Purchase',
                         'url'        => 'purchase',
                         'language'   => 'purchase',
                         'icon'       => 'lab lab-line-add-purchase',

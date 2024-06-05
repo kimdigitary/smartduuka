@@ -14,6 +14,11 @@
                             <ExcelComponent :method="xls" />
                         </div>
                     </div>
+                    <router-link @click="reset" to="stock/create"
+                       class="db-btn h-[37px] text-white bg-primary">
+                        <i class="lab lab-line-add-circle"></i>
+                        <span>Add Stock</span>
+                    </router-link>
                 </div>
             </div>
 

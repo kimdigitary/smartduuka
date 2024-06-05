@@ -365,6 +365,7 @@
         Route ::prefix('purchase') -> name('purchase.') -> group(function () {
             Route ::get('/', [PurchaseController::class, 'index']);
             Route ::post('/', [PurchaseController::class, 'store']);
+            Route ::post('/store-stock', [PurchaseController::class, 'storeStock']);
             Route ::get('/show/{purchase}', [PurchaseController::class, 'show']);
             Route ::get('/edit/{purchase}', [PurchaseController::class, 'edit']);
             Route ::match(['post', 'put', 'patch'], '/update/{purchase}', [PurchaseController::class, 'update']);
