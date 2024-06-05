@@ -9,7 +9,6 @@ use App\Http\Requests\PaginateRequest;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Http\Resources\ProductCategoryResource;
 use App\Models\ProductCategory;
-
 class ProductCategoryController extends AdminController
 {
     private ProductCategoryService $productCategoryService;
