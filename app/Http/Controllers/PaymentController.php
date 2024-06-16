@@ -19,7 +19,6 @@ class PaymentController extends Controller
     private const API_KEY = 'e63f20b7265e4724abf25194fedef21b';
 
     // https://momodeveloper.mtn.com/api-documentation/testing
-
     public function pay(Request $request)
     {
         return $this->createApiUser();
