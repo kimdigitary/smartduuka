@@ -36,7 +36,7 @@ class DashboardService
         $date = date_diff(date_create($first_date), date_create($last_date), false);
         $date_diff = (int) $date->format("%a");
 
-        $total_sales = AppLibrary::flatAmountFormat($order->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->where('payment_status', PaymentStatus::PAID)->sum('total'));
+        $total_sales = $order->whereDate('order_datetime', '>=', $first_date)->whereDate('order_datetime', '<=', $last_date)->where('payment_status', PaymentStatus::PAID)->sum('total');
 
         $dateRangeArray = [];
         for ($currentDate = strtotime($first_date); $currentDate <= strtotime($last_date); $currentDate += (86400)) {
