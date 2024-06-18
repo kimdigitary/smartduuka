@@ -1,2 +1,5 @@
 https://docs.google.com/spreadsheets/d/1gcFhztZNnkdsBFHMure5dyQsFnlkaLcy/edit#gid=1882953536
 https://github.com/kimdigitary/smartduuka/blob/4ffb43bd65438a445abcdc391c3b8ffc7e033e13/resources/js/components/admin/dashboard/OverviewComponent.vue
+
+php artisan db:seed --class=MenuTableSeeder
+Menu::truncate()

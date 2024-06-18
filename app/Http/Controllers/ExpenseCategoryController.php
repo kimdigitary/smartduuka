@@ -60,13 +60,10 @@ class ExpenseCategoryController extends Controller
         return $this->response(success: true, message: 'success', data: $expense_category);
     }
 
-    public function show(ExpenseCategory $expenseCategory)
-    {
-        //
-    }
 
     public function update(Request $request, ExpenseCategory $expenseCategory)
     {
+        info($request->all());
         $validation = Validator::make($request->all(), ['name' => 'required']);
         if ($validation->fails()) {
             return $this->response(message: $validation->errors()->first());
