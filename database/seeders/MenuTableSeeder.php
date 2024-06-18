@@ -23,16 +23,6 @@ class MenuTableSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'name'       => 'Subscriptions',
-                'language'   => 'subscriptions',
-                'url'        => 'subscriptions',
-                'icon'       => 'lab lab-line-dashboard',
-                'priority'   => 100,
-                'status'     => 1,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
                 'name'       => 'Pos & Orders',
                 'language'   => 'pos_and_orders',
                 'url'        => '#',
@@ -245,7 +235,38 @@ class MenuTableSeeder extends Seeder
                         'created_at' => now(),
                         'updated_at' => now()
                     ]
-
+                ]
+            ],
+//            [
+//                'name'       => 'Subscriptions',
+//                'language'   => 'subscriptions',
+//                'url'        => 'subscriptions',
+//                'icon'       => 'lab lab-line-dashboard',
+//                'priority'   => 100,
+//                'status'     => 1,
+//                'created_at' => now(),
+//                'updated_at' => now()
+//            ],
+            [
+                'name'       => 'Payments',
+                'language'   => 'subscriptions',
+                'url'        => '#',
+                'icon'       => 'lab ',
+                'priority'   => 100,
+                'status'     => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'children'   => [
+                    [
+                        'name'       => 'Subscriptions',
+                        'language'   => 'subscriptions',
+                        'url'        => 'subscriptions',
+                        'icon'       => 'lab lab-line-settings',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]
                 ]
             ],
             [

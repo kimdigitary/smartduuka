@@ -9,14 +9,16 @@
                         <div v-for="(plan,index) in this.packages" :key="plan.id">
                             <div
                                 @click="setSelected(index)"
-                                :class="['block max-w-sm p-6 border border-gray-200 rounded-lg shadow cursor-pointer',plan.selected?'bg-shopperz-yellow':'bg-white']">
-                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 text-center">{{
-                                        plan.name
-                                    }}</h5>
-                                <div class="flex justify-center items-baseline my-8">
-                                <span class="mr-2 text-3xl text-shopperz-pink font-extrabold">UGX {{
-                                        plan.amount
-                                    }}</span>
+                                :class="['block max-w-sm border border-gray-200 rounded-lg shadow cursor-pointer',plan.selected?'bg-shopperz-yellow':'bg-white']">
+                                <div class="w-full bg-[#FF8C4B] py-3 rounded-t-lg text-white text-center">
+                                    {{ plan.name }}
+                                </div>
+                                <div class="my-8">
+                                    <p class="text-3xl font-extrabold text-center my-5">UGX {{ plan.amount }}</p>
+                                    <p class="text-gray-700 text-center">Pay each month</p>
+                                    <p class="text-gray-700 text-center">Free startup month</p>
+                                    <p class="text-gray-700 text-center">Access to all features</p>
+                                    <p class="text-gray-700 text-center">24/7 Support</p>
                                 </div>
                             </div>
                         </div>
@@ -48,6 +50,7 @@
                         <span>PAY NOW</span>
                     </button>
                 </div>
+
             </div>
         </form>
     </div>
