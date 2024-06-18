@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="db-card">
             <div class="db-card-header border-none">
-                <h3 class="db-card-title">Expenses</h3>
+                <h3 class="db-card-title">Subscriptions</h3>
                 <div class="db-card-filter">
                     <TableLimitComponent :method="list" :search="props.search" :page="paginationPage"/>
                     <FilterComponent/>
@@ -215,33 +215,33 @@ export default {
     },
     computed: {
         items: function () {
-            return this.$store.getters['expense/lists'];
+            return this.$store.getters['subscriptions/lists'];
         },
         purchases: function () {
             return this.$store.getters['purchase/lists'];
         },
         pagination: function () {
-            return this.$store.getters['expense/pagination'];
+            return this.$store.getters['subscriptions/pagination'];
         },
         paginationPage: function () {
-            return this.$store.getters['expense/page'];
+            return this.$store.getters['subscriptions/page'];
         },
     },
     mounted() {
         this.list();
-        this.$store.dispatch('expense/lists', this.searchProps);
+        this.$store.dispatch('subscriptions/lists', this.searchProps);
     },
     methods: {
         permissionChecker(e) {
             return appService.permissionChecker(e);
         },
         reset: function () {
-            this.$store.dispatch('expense/reset').then().catch();
+            this.$store.dispatch('subscriptions/reset').then().catch();
         },
         addPayment: function (id) {
             appService.modalShow('#purchasePayment');
             this.loading.isActive = true;
-            this.$store.dispatch("expense/payment", id);
+            this.$store.dispatch("subscriptions/payment", id);
             this.loading.isActive = false;
         },
         purchasePaymentStatusClass: function (status) {
@@ -280,7 +280,7 @@ export default {
         list: function (page = 1) {
             this.loading.isActive = true;
             this.props.search.page = page;
-            this.$store.dispatch('expense/lists', this.props.search).then(res => {
+            this.$store.dispatch('subscriptions/lists', this.props.search).then(res => {
                 this.loading.isActive = false;
             }).catch((err) => {
                 this.loading.isActive = false;
@@ -289,7 +289,7 @@ export default {
         edit: function (product) {
             this.loading.isActive = true;
             appService.sideDrawerShow();
-            this.$store.dispatch('expense/edit', product.id);
+            this.$store.dispatch('subscriptions/edit', product.id);
             this.loading.isActive = false;
             this.props.form.name = product.name;
         },
@@ -297,7 +297,7 @@ export default {
             appService.destroyConfirmation().then((res) => {
                 try {
                     this.loading.isActive = true;
-                    this.$store.dispatch('expense/destroy', {id: id, search: this.props.search}).then((res) => {
+                    this.$store.dispatch('subscriptions/destroy', {id: id, search: this.props.search}).then((res) => {
                         this.loading.isActive = false;
                         alertService.successFlip(null, this.$t('menu.products'));
                     }).catch((err) => {
@@ -314,7 +314,7 @@ export default {
         },
         xls: function () {
             this.loading.isActive = true;
-            this.$store.dispatch("expense/export", this.props.search).then((res) => {
+            this.$store.dispatch("subscriptions/export", this.props.search).then((res) => {
                 this.loading.isActive = false;
                 const blob = new Blob([res.data], {
                     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
