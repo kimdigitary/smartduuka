@@ -51,6 +51,7 @@ use App\Http\Controllers\Frontend\LanguageController as FrontendLanguageControll
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\SettingController as FrontendSettingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -68,6 +69,9 @@ use Illuminate\Support\Facades\Route;
 Route::match(['get', 'post'], '/login', function () {
     return response()->json(['errors' => 'unauthenticated'], 401);
 })->name('login');
+
+Route::apiResource('expense-categories', ExpenseCategoryController::class);
+Route::apiResource('subscriptions', SubscriptionController::class);
 
 //Route::post('pay', [PaymentController::class, 'pay']);
 Route::post('pay', [PaymentController::class, 'requestToPay']);
@@ -259,7 +263,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum'])->group(func
     });
 
     Route::resource('expenses', ExpensesController::class);
-    Route::resource('expense-categories', ExpenseCategoryController::class);
+//    Route::apiResource('expense-categories', ExpenseCategoryController::class);
     Route::get('expense-category/depth-tree', [ExpenseCategoryController::class, 'depthTree']);
 //        Route ::get('depth-tree', [ExpenseCategoryController::class, 'depthTree']);
     Route::resource('expense-payments', ExpensePaymentController::class);

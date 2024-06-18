@@ -9,18 +9,23 @@ use Illuminate\Database\Seeder;
 
 class MenuTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         $menus = [
             [
                 'name'       => 'Dashboard',
                 'language'   => 'dashboard',
                 'url'        => 'dashboard',
+                'icon'       => 'lab lab-line-dashboard',
+                'priority'   => 100,
+                'status'     => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name'       => 'Subscriptions',
+                'language'   => 'subscriptions',
+                'url'        => 'subscriptions',
                 'icon'       => 'lab lab-line-dashboard',
                 'priority'   => 100,
                 'status'     => 1,
@@ -134,7 +139,7 @@ class MenuTableSeeder extends Seeder
                 ]
             ],
             [
-                'name'       => 'Expenses',
+                'name'       => 'Expenses & Categories',
                 'language'   => 'expenses',
                 'url'        => '#',
                 'icon'       => 'lab lab-item',

@@ -53,7 +53,8 @@ export const expense = {
                 let method = axios.post;
                 let url = '/admin/expenses';
                 if (this.state['expense'].temp.isEditing) {
-                    method = axios.put;
+                    // method = axios.put;
+                    payload.form.append('_method', 'PUT')
                     url = `/admin/expenses/${this.state['expense'].temp.temp_id}`;
                 }
                 method(url, payload.form).then(res => {

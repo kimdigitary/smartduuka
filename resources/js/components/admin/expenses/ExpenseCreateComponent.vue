@@ -29,6 +29,7 @@
                     <label for="product_category_id" class="db-field-title required">
                         {{ $t("label.category") }}
                     </label>
+                    {{categories}}
                     <vue-select ref="product_category_id" class="db-field-control f-b-custom-select"
                                 id="product_category_id" v-bind:class="errors.category ? 'invalid' : ''"
                                 v-model="props.form.category" :options="categories" label-by="option"
