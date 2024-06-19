@@ -61,18 +61,11 @@
                 <table class="db-table stripe" id="print">
                     <thead class="db-table-head">
                     <tr class="db-table-head-tr">
-                        <th class="db-table-head-th">
-                            {{ $t('label.name') }}
-                        </th>
-                        <th class="db-table-head-th">
-                            Amount
-                        </th>
-                        <th class="db-table-head-th">
-                            Date
-                        </th>
-                        <th class="db-table-head-th">
-                            Category
-                        </th>
+                        <th class="db-table-head-th">Plan</th>
+                        <th class="db-table-head-th">Invoice No</th>
+                        <th class="db-table-head-th">Start Date</th>
+                        <th class="db-table-head-th">End Date</th>
+                        <th class="db-table-head-th">Status</th>
                         <th class="db-table-head-th hidden-print"
                             v-if="permissionChecker('products_show') || permissionChecker('products_edit') || permissionChecker('products_delete')">
                             {{ $t('label.action') }}
@@ -80,32 +73,22 @@
                     </tr>
                     </thead>
 
-                    <tbody class="db-table-body" v-if="items.length > 0">
-                    <tr class="db-table-body-tr" v-for="expense in items" :key="expense.id">
-                        <td class="db-table-body-td">{{ expense.name }}</td>
-                        <td class="db-table-body-td">{{ expense.amount }}</td>
-                        <td class="db-table-body-td">{{ expense.date }}</td>
-                        <td class="db-table-body-td">{{ expense.category.name }}</td>
+                    <tbody class="db-table-body" v-if="subscriptions.length > 0">
+                    <tr class="db-table-body-tr" v-for="subscription in subscriptions" :key="subscription.id">
+                        <td class="db-table-body-td">{{ subscription.plan.name }}</td>
+                        <td class="db-table-body-td">{{ subscription.invoice }}</td>
+                        <td class="db-table-body-td">{{ subscription.starts_at }}</td>
+                        <td class="db-table-body-td">{{ subscription.expires_at }}</td>
+                        <td class="db-table-body-td">{{ subscription.status }}</td>
                         <td class="db-table-body-td hidden-print"
                             v-if="permissionChecker('products_show') || permissionChecker('products_edit') || permissionChecker('products_delete')">
                             <div class="flex justify-start items-center sm:items-start sm:justify-start gap-1.5">
-                                <SmIconViewComponent :link="'admin.expenses.show'" :id="expense.id"
+                                <SmIconViewComponent :link="'admin.expenses.show'" :id="subscription.id"
                                                      v-if="permissionChecker('products_show')"/>
-                                <SmIconEditComponent @click="edit(expense)" :link="'admin.expenses.edit'"
-                                                     :id="expense.id"
+                                <SmIconEditComponent @click="edit(subscription)" :link="'admin.expenses.edit'"
+                                                     :id="subscription.id"
                                                      v-if="permissionChecker('purchase_edit')"/>
-                                <SmIconDeleteComponent @click="destroy(expense.id)"
-                                                       v-if="permissionChecker('products_delete')"/>
-                                <button type="button" data-modal="#purchasePayment" @click="addPayment(expense.id)"
-                                        class="db-table-action">
-                                    <i class="lab lab-line-card text-blue-500 bg-blue-100"></i>
-                                    <span class="db-tooltip">{{ $t('button.add_payment') }}</span>
-                                </button>
-                                <button type="button" data-modal="#purchasePaymentList" @click="paymentList(expense.id)"
-                                        class="db-table-action">
-                                    <i class="lab lab lab-line-menu text-cyan-500 bg-cyan-100"></i>
-                                    <span class="db-tooltip">{{ $t('button.view_payments') }}</span>
-                                </button>
+
                             </div>
                         </td>
                     </tr>
@@ -214,7 +197,7 @@ export default {
         }
     },
     computed: {
-        items: function () {
+        subscriptions: function () {
             return this.$store.getters['subscriptions/lists'];
         },
         purchases: function () {
