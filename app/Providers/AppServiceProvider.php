@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Menu::truncate();
-        Artisan::call('db:seed --class=MenuTableSeeder');
+//        Menu::truncate();
+//        Artisan::call('db:seed --class=MenuTableSeeder');
     }
 }
