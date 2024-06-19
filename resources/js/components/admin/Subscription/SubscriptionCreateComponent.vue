@@ -60,18 +60,17 @@ import SmSidebarModalCreateComponent from "../components/buttons/SmSidebarModalC
 import LoadingComponent from "../components/LoadingComponent";
 import alertService from "../../../services/alertService";
 import appService from "../../../services/appService";
-import DatePickerComponent from "../components/DatePickerComponent.vue";
-import {quillEditor} from "vue3-quill";
+
 import activityEnum from "../../../enums/modules/activityEnum";
 import askEnum from "../../../enums/modules/askEnum";
 import statusEnum from "../../../enums/modules/statusEnum";
 import isRecurringEnum from "../../../enums/modules/isRecuringEnum";
-import {paymentMethods, recurringOptions} from "../../../utils/data";
+
 import {addMonths, format} from "date-fns";
 
 export default {
     name: "ExpenseCreateComponent",
-    components: {DatePickerComponent, SmSidebarModalCreateComponent, LoadingComponent, quillEditor},
+    components: { SmSidebarModalCreateComponent, LoadingComponent,},
     // props: ['props'],
     data() {
         return {
@@ -132,14 +131,12 @@ export default {
     },
     mounted() {
         this.packages = [
-            {id: 1, name: '1 Monthly Access', selected: false, amount: '50,000'},
-            {id: 2, name: '3 Monthly Access', selected: false, amount: '145,000'},
-            {id: 3, name: '6 Monthly Access', selected: false, amount: '275,000'},
-            {id: 4, name: '12 Monthly Access', selected: false, amount: '550,000'},
+            {id: 1, name: 'Monthly', duration: 1, selected: false, amount: '50,000'},
+            {id: 2, name: 'Quarterly', duration: 3, selected: false, amount: '145,000'},
+            {id: 3, name: 'Half Yearly', duration: 6, selected: false, amount: '285,000'},
+            {id: 4, name: 'Yearly', duration: 12, selected: false, amount: '550,000'},
         ]
         this.loading.isActive = true;
-        this.recurringOptions = recurringOptions
-        this.paymentMethods = paymentMethods
         this.expenseInfo();
 
         this.$store.dispatch('expenseCategory/depthTrees', {}).then((res) => {
@@ -164,7 +161,7 @@ export default {
     methods: {
         expenseInfo: function () {
             if (!isNaN(this.$route.params.id)) {
-                this.$store.dispatch('expense/edit', this.$route.params.id).then((res) => {
+                this.$store.dispatch('subscriptions/edit', this.$route.params.id).then((res) => {
                     this.getExpense(res.data.data);
                 })
             }
@@ -175,7 +172,7 @@ export default {
             })
             this.selected = this.packages[index];
             this.selected.startsOn = format(new Date(), "dd/MM/yyyy");
-            const months = this.selected.name.split(' ')[0]
+            const months = this.selected.duration
             const endsOn = addMonths(new Date(), parseInt(months));
             this.selected.months = months;
             this.selected.charges = '0';
@@ -200,7 +197,7 @@ export default {
         },
         reset: function () {
             appService.sideDrawerHide();
-            this.$store.dispatch('expense/reset').then().catch();
+            this.$store.dispatch('subscriptions/reset').then().catch();
             this.errors = {};
             this.$props.props.form = {
                 name: ""
@@ -223,20 +220,22 @@ export default {
         },
 
         save: function () {
+            console.log('called')
             try {
-                const tempId = this.$store.getters['expense/temp'].temp_id;
+                const tempId = this.$store.getters['subscriptions/temp'].temp_id;
                 this.loading.isActive = true;
-                this.$store.dispatch('expense/save', this.props).then((res) => {
+                const data = new FormData();
+                Object.entries(this.selected).forEach(([key, value]) => {
+                    data.append(key, value);
+                });
+                this.$store.dispatch('subscriptions/save', {
+                    form: data,
+                    search: this.props.search
+                }).then((res) => {
                     appService.sideDrawerHide();
                     this.loading.isActive = false;
-                    console.log('then', res)
-                    alertService.successFlip((tempId === null ? 0 : 1), "Expense Category");
-                    // this.props.form = {
-                    //   name: ""
-                    // }
-                    // this.errors = {};
-                    // this.reset();
-                    this.$router.push({name: 'admin.expenses.list'});
+                    alertService.successFlip((tempId === null ? 0 : 1), "Subscription");
+                    this.$router.push({name: 'admin.subscriptions'});
                 }).catch(({response}) => {
                     this.loading.isActive = false;
                     if (response.data) {
