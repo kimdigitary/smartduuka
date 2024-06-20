@@ -88,7 +88,6 @@
                                 <SmIconEditComponent @click="edit(subscription)" :link="'admin.expenses.edit'"
                                                      :id="subscription.id"
                                                      v-if="permissionChecker('purchase_edit')"/>
-
                             </div>
                         </td>
                     </tr>
