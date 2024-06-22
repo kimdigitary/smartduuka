@@ -29,7 +29,6 @@
                     <label for="product_category_id" class="db-field-title required">
                         {{ $t("label.category") }}
                     </label>
-                    {{categories}}
                     <vue-select ref="product_category_id" class="db-field-control f-b-custom-select"
                                 id="product_category_id" v-bind:class="errors.category ? 'invalid' : ''"
                                 v-model="props.form.category" :options="categories" label-by="option"
@@ -250,8 +249,7 @@ export default {
         this.paymentMethods = paymentMethods
         this.expenseInfo();
 
-        this.$store.dispatch('expenseCategory/depthTrees', {
-        }).then((res) => {
+        this.$store.dispatch('expenseCategory/depthTrees', {}).then((res) => {
             this.categories = res.data.data;
             console.log(this.categories)
             this.loading.isActive = false;
@@ -259,16 +257,16 @@ export default {
             this.loading.isActive = false;
         });
 
-        this.loading.isActive = true;
-        this.$store.dispatch('expenseCategory/lists', {
-            order_column: 'id',
-            order_type: 'asc'
-        }).then((res) => {
-            this.categories = res.data.data;
-            this.loading.isActive = false;
-        }).catch((error) => {
-            this.loading.isActive = false;
-        });
+        // this.loading.isActive = true;
+        // this.$store.dispatch('expenseCategory/lists', {
+        //     order_column: 'id',
+        //     order_type: 'asc'
+        // }).then((res) => {
+        //     this.categories = res.data.data;
+        //     this.loading.isActive = false;
+        // }).catch((error) => {
+        //     this.loading.isActive = false;
+        // });
     },
     methods: {
         expenseInfo: function () {

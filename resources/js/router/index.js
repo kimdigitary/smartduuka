@@ -21,7 +21,6 @@ import posOrderRoutes from "./modules/posOrderRoutes";
 import posRoutes from "./modules/posRoutes";
 import expensesRoutes from "./modules/expensesRoutes";
 import categoriesRoutes from "./modules/categoriesRoutes";
-import SubscriptionComponent from "../components/admin/Subscription/SubscriptionComponent.vue";
 import SubscriptionListComponent from "../components/admin/Subscription/SubscriptionListComponent.vue";
 import SubscriptionCreateComponent from "../components/admin/Subscription/SubscriptionCreateComponent.vue";
 
