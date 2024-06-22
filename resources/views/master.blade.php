@@ -37,7 +37,5 @@
     <script src="{{ asset('themes/default/js/tabs.js') }}"></script>
     <script src="{{ asset('themes/default/js/jqueryDropdown.js') }}"></script>
     <script src="{{ asset('themes/default/js/apexcharts/apexcharts.min.js') }}"></script>
-
 </body>
-
 </html>

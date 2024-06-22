@@ -17,5 +17,9 @@ class AppServiceProvider extends ServiceProvider
     {
 //        Menu::truncate();
 //        Artisan::call('db:seed --class=MenuTableSeeder');
+        $now = now('Africa/Kampala');
+        $day = $now->day;
+        $month = $now->month;
+        info($month);
     }
 }

@@ -12,7 +12,7 @@
     {
         use HasFactory, InteractsWithMedia;
 
-        protected $fillable = ['name', 'amount', 'date', 'category', 'note', 'paymentMethod', 'referenceNo', 'attachment', 'recurs', 'isRecurring', 'user_id','repetitions', 'paid', 'paid_on', 'repeats_on', 'registerMediaConversionsUsingModelInstance'];
+        protected $fillable = ['name', 'amount', 'date', 'category', 'note', 'paymentMethod', 'referenceNo', 'attachment', 'recurs', 'isRecurring', 'user_id','repetitions', 'paid', 'paid_on', 'repeats_on', 'registerMediaConversionsUsingModelInstance','count'];
 
         public function category() : HasOne
         {
