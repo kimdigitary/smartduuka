@@ -109,6 +109,8 @@ class ExpensesController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $deleted = Expense::find($id)->delete();
+        if ($deleted) return $this->response(true, 'success');
+        return $this->response(message: 'Expense deletion failed');
     }
 }

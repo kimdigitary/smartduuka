@@ -39,5 +39,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DamageTableSeeder::class);
         $this->call(ProductReviewTableSeeder::class);
         $this->call(CurrencyTableSeeder::class);
+        $this->call(DiningTableTableSeeder::class);
     }
 }

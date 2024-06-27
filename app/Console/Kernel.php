@@ -17,15 +17,13 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () use ($now) {
             Expense::where([
                 'isRecurring' => 1,
-                'recurs'      => 3,
-            ])
-//                ->where('repeats_on', '<=', $now->format('Y-m-d H:i:s'))
+            ])->where('repeats_on', '<=', $now->format('Y-m-d H:i:s'))
                 ->chunkById(200, function (Collection $expenses) use ($now) {
                     $expenses->each(function ($expense) {
 
                     });
                 });
-        })->everyMinute();
+        })->daily();
     }
 
     protected function commands(): void

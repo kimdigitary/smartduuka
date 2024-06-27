@@ -251,22 +251,11 @@ export default {
 
         this.$store.dispatch('expenseCategory/depthTrees', {}).then((res) => {
             this.categories = res.data.data;
-            console.log(this.categories)
             this.loading.isActive = false;
         }).catch((error) => {
             this.loading.isActive = false;
         });
 
-        // this.loading.isActive = true;
-        // this.$store.dispatch('expenseCategory/lists', {
-        //     order_column: 'id',
-        //     order_type: 'asc'
-        // }).then((res) => {
-        //     this.categories = res.data.data;
-        //     this.loading.isActive = false;
-        // }).catch((error) => {
-        //     this.loading.isActive = false;
-        // });
     },
     methods: {
         expenseInfo: function () {
