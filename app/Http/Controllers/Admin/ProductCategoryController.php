@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use App\Http\Resources\ProductCategoryDepthTreeResource;
 use Exception;
 use App\Services\ProductCategoryService;
@@ -10,7 +9,6 @@ use App\Http\Requests\PaginateRequest;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Http\Resources\ProductCategoryResource;
 use App\Models\ProductCategory;
-
 class ProductCategoryController extends AdminController
 {
     private ProductCategoryService $productCategoryService;
@@ -39,8 +37,6 @@ class ProductCategoryController extends AdminController
             return response(['status' => false, 'message' => $exception->getMessage()], 422);
         }
     }
-
-
     public function store(ProductCategoryRequest $request): \Illuminate\Http\Response|ProductCategoryResource|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         try {

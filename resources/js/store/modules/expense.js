@@ -12,7 +12,7 @@ export const expense = {
             temp_id: null,
             isEditing: false,
         },
-        simpleList:[]
+        simpleList: []
     },
     getters: {
         lists: function (state) {
@@ -53,7 +53,8 @@ export const expense = {
                 let method = axios.post;
                 let url = '/admin/expenses';
                 if (this.state['expense'].temp.isEditing) {
-                    method = axios.put;
+                    // method = axios.put;
+                    payload.form.append('_method', 'PUT')
                     url = `/admin/expenses/${this.state['expense'].temp.temp_id}`;
                 }
                 method(url, payload.form).then(res => {
@@ -66,7 +67,51 @@ export const expense = {
             });
         },
         edit: function (context, payload) {
-            context.commit('temp', payload);
+            return new Promise((resolve, reject) => {
+                axios.get(`admin/expenses/${payload}`).then((res) => {
+                    context.commit('edit', res.data.data);
+                    context.commit('temp', payload);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
+            })
+        },
+        payment: function (context, payload) {
+            context.commit("temp", payload);
+        },
+        addPayment: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                let method = axios.post;
+                let url = `admin/expense-payments`;
+                method(url, payload.form).then(res => {
+                    context.dispatch('lists', {vuex: true}).then().catch();
+                    context.commit('reset');
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            })
+        },
+        viewPayment: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get(`admin/purchase/payment/${this.state['purchase'].temp.temp_id}`).then((res) => {
+                    context.commit('viewPayment', res.data.data);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
+            })
+        },
+        paymentDestroy: function (context, payload) {
+            return new Promise((resolve, reject) => {
+                axios.delete(`admin/purchase/payment/${payload.purchase_id}/${payload.id}`).then((res) => {
+                    context.dispatch("lists", payload.search).then().catch();
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            });
         },
         destroy: function (context, payload) {
             return new Promise((resolve, reject) => {
@@ -98,7 +143,7 @@ export const expense = {
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
-                axios.get(url, { responseType: 'blob' }).then((res) => {
+                axios.get(url, {responseType: 'blob'}).then((res) => {
                     resolve(res);
                 }).catch((err) => {
                     reject(err);
@@ -120,6 +165,9 @@ export const expense = {
         reset: function (state) {
             state.temp.temp_id = null;
             state.temp.isEditing = false;
+        },
+        edit: function (state, payload) {
+            state.edit = payload;
         },
     },
 }

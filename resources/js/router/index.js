@@ -21,6 +21,8 @@ import posOrderRoutes from "./modules/posOrderRoutes";
 import posRoutes from "./modules/posRoutes";
 import expensesRoutes from "./modules/expensesRoutes";
 import categoriesRoutes from "./modules/categoriesRoutes";
+import SubscriptionListComponent from "../components/admin/Subscription/SubscriptionListComponent.vue";
+import SubscriptionCreateComponent from "../components/admin/Subscription/SubscriptionCreateComponent.vue";
 
 
 const baseRoutes = [
@@ -46,6 +48,28 @@ const baseRoutes = [
         path: "/admin/dashboard",
         component: DashboardComponent,
         name: "admin.dashboard",
+        meta: {
+            isFrontend: false,
+            auth: true,
+            permissionUrl: "dashboard",
+            breadcrumb: "dashboard",
+        },
+    },
+    {
+        path: "/admin/subscriptions",
+        component: SubscriptionListComponent,
+        name: "admin.subscriptions",
+        meta: {
+            isFrontend: false,
+            auth: true,
+            permissionUrl: "dashboard",
+            breadcrumb: "dashboard",
+        },
+    },
+    {
+        path: "/admin/subscriptions/create",
+        component: SubscriptionCreateComponent,
+        name: "admin.subscriptions.create",
         meta: {
             isFrontend: false,
             auth: true,

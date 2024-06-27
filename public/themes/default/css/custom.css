@@ -252,3 +252,15 @@
     background-image: url(../../../images/required/installer.jpg);
 }
 /* installer code close */
+.bg-admin-light {
+    background-color: rgba(209, 206, 206, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+.dashed-hr {
+    border-top: 2px dashed #4b4b4b; /* Change color as needed */
+    height: 2px; /* Adjust thickness as needed */
+    margin: 20px 0;
+}

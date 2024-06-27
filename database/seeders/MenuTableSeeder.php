@@ -9,12 +9,7 @@ use Illuminate\Database\Seeder;
 
 class MenuTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         $menus = [
             [
@@ -102,7 +97,7 @@ class MenuTableSeeder extends Seeder
 
                     ],
                     [
-                        'name'       => 'Product Stocking',
+                        'name'       => 'Stock Purchase',
                         'url'        => 'purchase',
                         'language'   => 'purchase',
                         'icon'       => 'lab lab-line-add-purchase',
@@ -134,7 +129,7 @@ class MenuTableSeeder extends Seeder
                 ]
             ],
             [
-                'name'       => 'Expenses',
+                'name'       => 'Expenses & Categories',
                 'language'   => 'expenses',
                 'url'        => '#',
                 'icon'       => 'lab lab-item',
@@ -240,7 +235,38 @@ class MenuTableSeeder extends Seeder
                         'created_at' => now(),
                         'updated_at' => now()
                     ]
-
+                ]
+            ],
+//            [
+//                'name'       => 'Subscriptions',
+//                'language'   => 'subscriptions',
+//                'url'        => 'subscriptions',
+//                'icon'       => 'lab lab-line-dashboard',
+//                'priority'   => 100,
+//                'status'     => 1,
+//                'created_at' => now(),
+//                'updated_at' => now()
+//            ],
+            [
+                'name'       => 'Payments',
+                'language'   => 'subscriptions',
+                'url'        => '#',
+                'icon'       => 'lab ',
+                'priority'   => 100,
+                'status'     => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+                'children'   => [
+                    [
+                        'name'       => 'Subscriptions',
+                        'language'   => 'subscriptions',
+                        'url'        => 'subscriptions',
+                        'icon'       => 'lab lab-line-settings',
+                        'priority'   => 100,
+                        'status'     => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]
                 ]
             ],
             [

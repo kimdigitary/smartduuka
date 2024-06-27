@@ -1,6 +1,7 @@
-import ExpenseCategoryComponent from "../../components/admin/expenseCategories/ExpenseCategoryComponent.vue";
-import ExpenseCategorytListComponent from "../../components/admin/expenseCategories/ExpenseCategorytListComponent.vue";
-import ExpenseCategoryShowComponent from "../../components/admin/expenseCategories/ExpenseCategoryShowComponent.vue";
+import ExpenseCategoryComponent from "../../components/admin/ExpenseCategory/ExpenseCategoryComponent.vue";
+import expenseCateogryListComponent from "../../components/admin/ExpenseCategory/ExpenseCateogryListComponent.vue";
+import ExpenseCategoryShowComponent from "../../components/admin/ExpenseCategory/ExpenseCategoryShowComponent.vue";
+
 
 export default [
     {
@@ -17,7 +18,7 @@ export default [
         children: [
             {
                 path: '',
-                component: ExpenseCategorytListComponent,
+                component: expenseCateogryListComponent,
                 name: 'admin.categories',
                 meta: {
                     isFrontend: false,

@@ -9,7 +9,6 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
 // mix.js('resources/js/app.js', 'public/js').vue().postCss('resources/css/app.css', 'public/css', [require("tailwindcss")])
 mix.js('resources/js/app.js', 'public/js')
     .vue()
@@ -17,3 +16,18 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss')
     ])
     .version();
+mix.ts('resources/js/utils/functions.ts', 'public/js');
+mix.webpackConfig({
+    resolve: {
+        extensions: [".wasm", ".mjs", ".js", ".jsx", ".json", ".ts", ".tsx", ".vue",".*"]
+    }
+});
+// Optionally, you can enable source maps for better debugging in development mode
+if (!mix.inProduction()) {
+    mix.webpackConfig({devtool: 'source-map'})
+        .sourceMaps();
+}
+
+if (mix.inProduction()) {
+    mix.version();
+}

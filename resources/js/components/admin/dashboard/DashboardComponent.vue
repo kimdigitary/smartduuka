@@ -1,10 +1,10 @@
 <template>
     <LoadingComponent :props="loading" />
 
-    <div class="mb-8">
-<!--        <h3 class="capitalize font-bold text-2xl text-primary mb-1.5">{{ visitorMessage() }}</h3>-->
-        <h4 class="capitalize font-medium text-xl text-secondary">{{ authInfo.name }}</h4>
-    </div>
+<!--    <div class="mb-8">-->
+<!--&lt;!&ndash;        <h3 class="capitalize font-bold text-2xl text-primary mb-1.5">{{ visitorMessage() }}</h3>&ndash;&gt;-->
+<!--        <h4 class="capitalize font-medium text-xl text-secondary">{{ authInfo.name }}</h4>-->
+<!--    </div>-->
     <!--========OVERVIEW START=============-->
     <OverviewComponent />
     <!--========OVERVIEW END=============-->

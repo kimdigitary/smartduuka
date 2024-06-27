@@ -41,8 +41,48 @@
                 'creditSales',
                 'depositSales',
                 'inStock',
-                'outStock'
+                'outStock',
+                'grossProfit',
+                'netProfit',
+                'stockValue',
+                'vendorBalance',
             );
+        }
+
+        public function grossProfit(Request $request
+        ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+            try {
+                return ['data' => ['gross_profit' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> grossProfit($request))]];
+            } catch (Exception $exception) {
+                return response(['status' => false, 'message' => $exception -> getMessage()], 422);
+            }
+        }
+
+        public function netProfit(Request $request
+        ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+            try {
+                return ['data' => ['net_profit' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> netProfit($request))]];
+            } catch (Exception $exception) {
+                return response(['status' => false, 'message' => $exception -> getMessage()], 422);
+            }
+        }
+
+        public function stockValue(Request $request
+        ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+            try {
+                return ['data' => ['stock_value' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> stockValue($request))]];
+            } catch (Exception $exception) {
+                return response(['status' => false, 'message' => $exception -> getMessage()], 422);
+            }
+        }
+
+        public function vendorBalance(Request $request
+        ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
+            try {
+                return ['data' => ['vendor_balance' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> vendorBalance($request))]];
+            } catch (Exception $exception) {
+                return response(['status' => false, 'message' => $exception -> getMessage()], 422);
+            }
         }
 
         public function totalSales(Request $request
@@ -58,6 +98,14 @@
         {
             $total = Expense ::where('user_id', $this -> id()) -> sum('amount');
             return $this -> response(true, 'success', data : ['totalExpense' => number_format($total)]);
+        }
+
+        public function pendingExpenses()
+        {
+            $total = Expense ::where('user_id', $this -> id())
+                             -> selectRaw('SUM(amount - paid) as total')
+                             -> value('total');
+            return $this -> response(true, 'success', data : ['pendingExpense' => number_format($total)]);
         }
 
         public function totalOrders(Request $request
@@ -120,7 +168,7 @@
         public function creditSales(Request $request
         ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
             try {
-                return ['data' => ['credit_sales' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> creditSales($request))]];
+                return ['data' => ['credit_sales' => $this -> dashboardService -> creditSales($request)]];
             } catch (Exception $exception) {
                 return response(['status' => false, 'message' => $exception -> getMessage()], 422);
             }
@@ -129,7 +177,7 @@
         public function depositSales(Request $request
         ) : \Illuminate\Http\Response | array | \Illuminate\Contracts\Foundation\Application | \Illuminate\Contracts\Routing\ResponseFactory {
             try {
-                return ['data' => ['deposit_sales' => AppLibrary ::currencyAmountFormat($this -> dashboardService -> depositSales($request))]];
+                return ['data' => ['deposit_sales' => $this -> dashboardService -> depositSales($request)]];
             } catch (Exception $exception) {
                 return response(['status' => false, 'message' => $exception -> getMessage()], 422);
             }

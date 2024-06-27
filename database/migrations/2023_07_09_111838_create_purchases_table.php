@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('discount', 13, 6)->nullable()->default(0);
             $table->decimal('subtotal', 13, 6);
             $table->decimal('total', 13, 6)->default(0);
+            $table->decimal('balance', 13, 6)->default(0);
             $table->unsignedTinyInteger('status')->default(PurchaseStatus::RECEIVED);
             $table->unsignedTinyInteger('payment_status')->default(PurchasePaymentStatus::PENDING);
             $table->text('note')->nullable();

@@ -87,6 +87,7 @@
                             <th class="db-table-head-th">{{ $t('label.reference_no') }}</th>
                             <th class="db-table-head-th">{{ $t('label.status') }}</th>
                             <th class="db-table-head-th">{{ $t('label.total') }}</th>
+                            <th class="db-table-head-th">Balance</th>
                             <th class="db-table-head-th">{{ $t('label.payment_status') }}</th>
                             <th v-if="permissionChecker('purchase_show') || permissionChecker('purchase_edit') || permissionChecker('purchase_delete')"
                                 class="db-table-head-th hidden-print">{{ $t('label.action') }}
@@ -102,6 +103,7 @@
                                     :class="purchaseStatusClass(purchase.status)">{{
                                         enums.statusEnumObj[purchase.status] }}</span></td>
                             <td class="db-table-body-td">{{ purchase.total_flat_price }}</td>
+                            <td class="db-table-body-td">{{ purchase.balance }}</td>
                             <td class="db-table-body-td">
                                 <span class="db-table-badge" :class="purchasePaymentStatusClass(purchase.payment_status)">
                                     {{ enums.purchasePaymentStatusEnumArray[purchase.payment_status] }}
@@ -125,10 +127,8 @@
                                     <i class="lab lab lab-line-menu text-cyan-500 bg-cyan-100"></i>
                                     <span class="db-tooltip">{{ $t('button.view_payments') }}</span>
                                 </button>
-
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>

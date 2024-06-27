@@ -53,7 +53,7 @@
     </div>
 </template>
 <script>
-import SmModalCreateComponent from "../components/buttons/SmModalCreateComponent";
+
 import LoadingComponent from "../components/LoadingComponent";
 import purchasePaymentMethodEnum from "../../../enums/modules/purchasePaymentMethodEnum";
 import alertService from "../../../services/alertService";
@@ -61,6 +61,7 @@ import appService from "../../../services/appService";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import SmIconDeleteComponent from "../components/buttons/SmIconDeleteComponent";
+import SmModalCreateComponent from "../components/buttons/SmModalCreateComponent.vue";
 
 export default {
     name: "PurchasePaymentListComponent",

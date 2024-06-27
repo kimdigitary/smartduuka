@@ -1,4 +1,3 @@
-
 import DamageComponent from '../../components/admin/damages/DamageComponent'
 import DamageCreateAndEditComponent from '../../components/admin/damages/DamageCreateAndEditComponent'
 import DamageListComponent from '../../components/admin/damages/DamageListComponent'

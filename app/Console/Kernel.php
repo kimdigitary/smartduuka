@@ -2,25 +2,33 @@
 
 namespace App\Console;
 
+use App\Models\Expense;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $now = now('Africa/Kampala');
+        $day = $now->day;
+        $month = $now->month;
+        $schedule->call(function () use ($now) {
+            Expense::where([
+                'isRecurring' => 1,
+            ])->where('repeats_on', '<=', $now->format('Y-m-d H:i:s'))
+                ->chunkById(200, function (Collection $expenses) use ($now) {
+                    $expenses->each(function ($expense) {
+
+                    });
+                });
+        })->daily();
     }
 
-    /**
-     * Register the commands for the application.
-     */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

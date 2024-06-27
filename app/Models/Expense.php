@@ -12,13 +12,14 @@
     {
         use HasFactory, InteractsWithMedia;
 
-        protected $fillable = ['name', 'amount', 'date', 'category', 'note', 'paymentMethod', 'referenceNo', 'attachment', 'recurs', 'isRecurring', 'user_id'];
+        protected $fillable = ['name', 'amount', 'date', 'category', 'note', 'paymentMethod', 'referenceNo', 'attachment', 'recurs', 'isRecurring', 'user_id','repetitions', 'paid', 'paid_on', 'repeats_on', 'registerMediaConversionsUsingModelInstance','count'];
 
         public function category() : HasOne
         {
 //            return $this -> hasOne(ExpenseCategory::class, 'category', 'id');
             return $this -> hasOne(ExpenseCategory::class, 'id', 'category');
         }
+
         public function getAttachmentAttribute($value)
         {
             return asset('storage/' . $value);

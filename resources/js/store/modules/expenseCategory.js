@@ -8,12 +8,13 @@ export const expenseCategory = {
         lists: [],
         page: {},
         pagination: [],
+        depthTrees: [],
         show: {},
         temp: {
             temp_id: null,
             isEditing: false,
         },
-        simpleList:[]
+        simpleList: []
     },
     getters: {
         lists: function (state) {
@@ -32,11 +33,24 @@ export const expenseCategory = {
         temp: function (state) {
             return state.temp;
         },
+        depthTrees: function (state) {
+            return state.depthTrees;
+        },
     },
     actions: {
+        depthTrees: function (context) {
+            return new Promise((resolve, reject) => {
+                axios.get('admin/expense-category/depth-tree').then((res) => {
+                    context.commit('depthTrees', res.data.data);
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                });
+            });
+        },
         lists: function (context, payload) {
             return new Promise((resolve, reject) => {
-                let url = 'admin/expense-categories';
+                let url = 'expense-categories';
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
@@ -53,14 +67,17 @@ export const expenseCategory = {
         save: function (context, payload) {
             return new Promise((resolve, reject) => {
                 let method = axios.post;
-                let url = '/admin/expense-categories';
+                let url = '/expense-categories';
                 if (this.state['expenseCategory'].temp.isEditing) {
-                    method = axios.put;
-                    url = `/admin/expense-categories/${this.state['expenseCategory'].temp.temp_id}`;
+                    // method = axios.put;
+                    payload.form.append('_method', 'PUT')
+                    url = `/expense-categories/${this.state['expenseCategory'].temp.temp_id}`;
                 }
                 payload.form.user_id = this.state['auth'].authInfo.id;
+                console.log(payload.form)
                 method(url, payload.form).then(res => {
                     context.dispatch('lists', payload.search).then().catch();
+                    context.dispatch('depthTrees', payload.search).then().catch();
                     context.commit('reset');
                     resolve(res);
                 }).catch((err) => {
@@ -73,7 +90,7 @@ export const expenseCategory = {
         },
         destroy: function (context, payload) {
             return new Promise((resolve, reject) => {
-                axios.delete(`admin/expense-categories/${payload.id}`).then((res) => {
+                axios.delete(`expense-categories/${payload.id}`).then((res) => {
                     context.dispatch('lists', payload.search).then().catch();
                     resolve(res);
                 }).catch((err) => {
@@ -96,11 +113,11 @@ export const expenseCategory = {
         },
         export: function (context, payload) {
             return new Promise((resolve, reject) => {
-                let url = 'admin/expense-categories-export';
+                let url = 'expense-categories-export';
                 if (payload) {
                     url = url + appService.requestHandler(payload);
                 }
-                axios.get(url, { responseType: 'blob' }).then((res) => {
+                axios.get(url, {responseType: 'blob'}).then((res) => {
                     resolve(res);
                 }).catch((err) => {
                     reject(err);
@@ -109,6 +126,9 @@ export const expenseCategory = {
         },
     },
     mutations: {
+        depthTrees: function (state, payload) {
+            state.depthTrees = payload;
+        },
         lists: function (state, payload) {
             state.lists = payload
         },
